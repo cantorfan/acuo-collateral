@@ -25,16 +25,16 @@ public class CorsResponseFilter implements ContainerResponseFilter
             throws IOException
     {
 
-        List<String> origins = requestContext.getHeaders().get("Origin");
-
-        if (origins == null || origins.size() != 1)
-        {
-            throw new ForbiddenException("Requests from this Origin not allowed.");
-        }
-
-        String origin = origins.get(0);
-
-        LOG.info("Request made from: [{}]", origin);
+//        List<String> origins = requestContext.getHeaders().get("Origin");
+//
+//        if (origins == null || origins.size() != 1)
+//        {
+//            throw new ForbiddenException("Requests from this Origin not allowed.");
+//        }
+//
+//        String origin = origins.get(0);
+//
+//        LOG.info("Request made from: [{}]", origin);
 
         final MultivaluedMap<String, Object> headers = responseContext.getHeaders();
         headers.add("Access-Control-Allow-Origin", "*");

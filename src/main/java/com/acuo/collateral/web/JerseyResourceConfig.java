@@ -19,7 +19,7 @@ public class JerseyResourceConfig extends ResourceConfig
         //http://stackoverflow.com/questions/35085267/guice-dont-inject-to-jerseys-resources
         this.register(GuiceFeature.class);
         this.register(EntityFilteringFeature.class);
-        this.packages("com.acuo.collateral.web");
+        this.packages("com.acuo.collateral.resources");
 
         this.register(LoggingFilter.class);
         this.register(RolesAllowedDynamicFeature.class);
