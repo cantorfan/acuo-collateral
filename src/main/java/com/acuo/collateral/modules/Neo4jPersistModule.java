@@ -51,8 +51,7 @@ public class Neo4jPersistModule extends PersistModule {
 		properties.put("neo4j.ogm.url", System.getProperty("neo4j.ogm.url"));
 		properties.put("neo4j.ogm.username", System.getProperty("neo4j.ogm.username"));
 		properties.put("neo4j.ogm.password", System.getProperty("neo4j.ogm.password"));
-		properties.put("neo4j.ogm.datafile", System.getProperty("neo4j.ogm.datafile"));
-
+		
 		bind(Properties.class).annotatedWith(Neo4j.class).toInstance(properties);
 
 	}
