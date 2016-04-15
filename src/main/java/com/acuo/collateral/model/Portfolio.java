@@ -6,18 +6,25 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity
-public class Fund extends Entity {
+public class Portfolio extends Entity {
 
 	private String name;
 
 	public String getName() {
 		return name;
 	}
-
+	
 	@Relationship(type = "IS_COMPOSED_OF")
-	private Set<Portfolio> portfolios;
+	private Set<Exposure> exposures;
 
-	public Set<Portfolio> getPortfolios() {
-		return portfolios;
+	public Set<Exposure> getExposures() {
+		return exposures;
+	}
+	
+	@Relationship(type = "IS_COMPOSED_OF")
+	private Set<Asset> assets;
+
+	public Set<Asset> getAssets() {
+		return assets;
 	}
 }

@@ -1,12 +1,9 @@
 package com.acuo.collateral.neo4j.data;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -17,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.neo4j.ogm.session.Session;
 
-import com.acuo.collateral.persist.CypherFileSpliter;
 import com.acuo.collateral.persist.DataLoader;
 import com.acuo.collateral.persist.SessionDataLoader;
 
@@ -36,7 +32,7 @@ public class DataLoaderTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
-		loader = new SessionDataLoader(session);
+		loader = new SessionDataLoader(session, "src/test/resources");
 	}
 	
 	@SuppressWarnings("unchecked")

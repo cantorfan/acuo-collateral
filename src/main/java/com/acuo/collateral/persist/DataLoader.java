@@ -11,4 +11,7 @@ public interface DataLoader {
 
 	void loadData(String query);
 
+	void loadDataFile(String fileName);
+
+	void loadAll();
 }

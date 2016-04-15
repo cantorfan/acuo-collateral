@@ -1,13 +1,10 @@
 package com.acuo.collateral.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public abstract class Entity {
 
-    @JsonProperty("id")
     private Long id;
 
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
