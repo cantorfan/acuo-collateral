@@ -84,6 +84,7 @@ public class PortfolioResource {
 		public static Function<com.acuo.collateral.model.Portfolio, Portfolio> create = t -> {
 			Portfolio portfolio = new Portfolio();
 			portfolio.id = t.getId();
+			portfolio.currency = t.getCurrency();
 			portfolio.name = t.getName();
 
 			return portfolio;
@@ -92,7 +93,8 @@ public class PortfolioResource {
 		public static Function<com.acuo.collateral.model.Portfolio, Portfolio> createDetailed = t -> {
 			Portfolio portfolio = new Portfolio();
 			portfolio.id = t.getId();
-			portfolio.name = t.getName();			
+			portfolio.name = t.getName();
+			portfolio.currency = t.getCurrency();		
 			portfolio.exposures = t.getExposures().stream().map(ExposureResource.Exposure.create).collect(Collectors.toSet());
 			portfolio.assets = t.getAssets().stream().map(AssetResource.Asset.create).collect(Collectors.toSet());
 			
@@ -102,6 +104,9 @@ public class PortfolioResource {
 		public Long id;
 
 		public String name;
+		
+		public String currency;
+		
 		
 		@ResourceDetailView
 		public Set<ExposureResource.Exposure> exposures;

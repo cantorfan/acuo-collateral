@@ -11,9 +11,14 @@ import org.neo4j.ogm.annotation.Relationship;
 public class Portfolio extends Entity {
 
 	private String name;
+	private String currency;
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getCurrency() {
+		return currency;
 	}
 	
 	@Relationship(type = "IS_COMPOSED_OF")

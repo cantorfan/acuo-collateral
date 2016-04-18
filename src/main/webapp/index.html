@@ -25,8 +25,8 @@
             <table id="results" class="table table-striped table-hover">
                 <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
-                    <th>Fund</th>
                     <th>Currency</th>
                 </tr>
                 </thead>
@@ -42,18 +42,37 @@
 <script type="text/javascript">
     $(function () {
 		
+		function portfolios() {
+			var query=$('#clients').val();
+			$.get("/acuo/api/portfolios/client="+ encodeURIComponent(query),
+				function (data) {
+                    var t = $("table#results tbody").empty();
+                    if (!data || data.length == 0) return;
+                    data.forEach(function (portfolio) {                        
+                        $("<tr><td class='movie'>" + portfolio.id + "</td><td>" + portfolio.name + "</td><td>" + portfolio.currency + "</td></tr>").appendTo(t)
+                    });
+                    showMovie(data[0].movie.title);
+                },
+				"json");
+			return false;
+		}
+		
 		function clients() {
 			$.get("/acuo/api/clients",
 				function(result){
 					var $select = $('#clients').empty();
-					$select.append($('<option />', { value: 0, text: "Please select a client" }));
+					$select.append($('<option />', { value: 0, text: "Please select a client" }));					
 					$.each(result, function(i, val){
 		    			$select.append($('<option />', { value: val.id, text: val.name }));
-					});
+					});										
 				},
 				"json");
 			return false;
 		}
+		
+		$("#clients").change(function () {
+			portfolios();
+		});
 		
         clients();
     })
