@@ -7,6 +7,7 @@ import java.net.URI;
 import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.grizzly.servlet.ServletRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -26,7 +27,7 @@ public class Bootstrap
 
     private static final String DEFAULT_HOST_URI = "http://127.0.0.1/";
 
-    private static final String DEFAULT_URL_PATTERN = "/*";
+    private static final String DEFAULT_URL_PATTERN = "/api/*";
 
 
     public static void main(String[] args)
@@ -36,13 +37,16 @@ public class Bootstrap
         URI baseUri = UriBuilder.fromUri(DEFAULT_HOST_URI).port(port).build();
         HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(baseUri, false);
 
-        WebappContext webappContext = new WebappContext("api.domain.com", "");
+        WebappContext webappContext = new WebappContext("Acuo Neo4j POC", "/acuo");
 
         webappContext.addListener(JerseyGuiceServletContextListener.class);
 
         ServletRegistration servletRegistration = webappContext.addServlet("ServletContainer", ServletContainer.class);
         servletRegistration.setInitParameter("javax.ws.rs.Application", JerseyResourceConfig.class.getName());
         servletRegistration.addMapping(DEFAULT_URL_PATTERN);
+        
+        httpServer.getServerConfiguration().addHttpHandler(
+                new StaticHttpHandler("src/main/webapp/"), "/");
 
         webappContext.deploy(httpServer);
 

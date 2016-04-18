@@ -48,7 +48,7 @@ public class ClientResource {
 	@GET
 	@Path("{id}")
 	@ResourceDetailView
-	public Client getByType(@PathParam("id") Long id) {
+	public Client findById(@PathParam("id") Long id) {
 		LOG.trace("Retrieving Class with ID: [{}]", id);
 
 		com.acuo.collateral.model.Client client = clientService.find(id);

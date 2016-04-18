@@ -10,6 +10,8 @@ import com.acuo.collateral.services.FundService;
 import com.acuo.collateral.services.FundServiceImpl;
 import com.acuo.collateral.services.ImportService;
 import com.acuo.collateral.services.Neo4jImportService;
+import com.acuo.collateral.services.PortfolioService;
+import com.acuo.collateral.services.PortfolioServiceImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
@@ -27,6 +29,7 @@ public class ServicesModule extends AbstractModule
 		bind(ImportService.class).to(Neo4jImportService.class).in(Singleton.class);
 		bind(ClientService.class).to(ClientServiceImpl.class).in(Singleton.class);
 		bind(FundService.class).to(FundServiceImpl.class).in(Singleton.class);
+		bind(PortfolioService.class).to(PortfolioServiceImpl.class).in(Singleton.class);
     }
 
     private void bindProperties()

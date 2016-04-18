@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> 
+    <link rel="stylesheet" href="http://neo4j-contrib.github.io/developer-resources/language-guides/assets/css/main.css">
+    <title>ACUO Collateral - Neo4j POC</title>
+</head>
+
+<body>
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Clients</div>
+             <div class="form-group">                            
+				<select name="clients" id="clients" class="form-control">						  
+				</select>
+            </div>
+        </div>
+    </div>    
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">Portfolios</div>
+            <table id="results" class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Fund</th>
+                    <th>Currency</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+		
+		function clients() {
+			$.get("/acuo/api/clients",
+				function(result){
+					var $select = $('#clients').empty();
+					$select.append($('<option />', { value: 0, text: "Please select a client" }));
+					$.each(result, function(i, val){
+		    			$select.append($('<option />', { value: val.id, text: val.name }));
+					});
+				},
+				"json");
+			return false;
+		}
+		
+        clients();
+    })
+</script>
+</body>
+</html>
