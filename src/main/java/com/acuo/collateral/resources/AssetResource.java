@@ -18,9 +18,9 @@ public class AssetResource {
 
 	public static class Asset {
 
-		private Long id;
-		private String key;
-		private CategoryResource.Category category;
+		public Long id;
+		public String key;
+		public CategoryResource.Category category;
 		
 		public static Function<com.acuo.collateral.model.Asset, Asset> create = t -> {
 			Asset asset = new Asset();

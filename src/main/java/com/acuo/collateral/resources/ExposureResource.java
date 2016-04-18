@@ -18,9 +18,9 @@ public class ExposureResource {
 
 	public static class Exposure {
 
-		private Long id;
-		private String key;
-		private String type;
+		public Long id;
+		public String key;
+		public String type;
 		
 		public static Function<com.acuo.collateral.model.Exposure, Exposure> create = t -> {
 			Exposure exposure = new Exposure();

@@ -18,8 +18,8 @@ public class CategoryResource {
 
 	public static class Category {
 
-		private Long id;
-		private String type;
+		public Long id;
+		public String type;
 		
 		public static Function<com.acuo.collateral.model.Category, Category> create = t -> {
 			Category category = new Category();
