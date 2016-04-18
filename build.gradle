@@ -10,9 +10,21 @@
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+mainClassName = 'com.acuo.collateral.Bootstrap'
+
+applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=http://localhost:7474",
+							  "-Dneo4j.ogm.username=",
+							  "-Dneo4j.ogm.password=",
+							  "-Dneo4j.ogm.driver=org.neo4j.ogm.drivers.http.driver.HttpDriver",
+							  "-Dneo4j.ogm.packages=com.acuo.collateral.model",
+							  "-Dneo4j.ogm.datafile=data.cql",
+							  "-Dacuo.data.workdir=src/test/resources"
+							]
 
 // In this section you declare where to find the dependencies of your project
 repositories {
