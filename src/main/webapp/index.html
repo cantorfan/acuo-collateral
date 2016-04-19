@@ -22,12 +22,46 @@
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">Portfolios</div>
-            <table id="results" class="table table-striped table-hover">
+            <table id="portfolios" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
                     <th>Currency</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">Assets</div>
+            <table id="assets" class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Key</th>
+                    <th>Category</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">Exposures</div>
+            <table id="exposures" class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Key</th>
+                    <th>Type</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,15 +80,42 @@
 			var query=$('#clients').val();
 			$.get("/acuo/api/portfolios/client="+ encodeURIComponent(query),
 				function (data) {
-                    var t = $("table#results tbody").empty();
+                    var t = $("table#portfolios tbody").empty();
                     if (!data || data.length == 0) return;
                     data.forEach(function (portfolio) {                        
-                        $("<tr><td class='movie'>" + portfolio.id + "</td><td>" + portfolio.name + "</td><td>" + portfolio.currency + "</td></tr>").appendTo(t)
+                        $("<tr><td class='portfolio'>" + portfolio.id + "</td><td>" + portfolio.name + "</td><td>" + portfolio.currency + "</td></tr>").appendTo(t)
+                        .click(function() { showPortfolio($(this).find("td.portfolio").text());})
                     });
-                    showMovie(data[0].movie.title);
+                    showPortfolio(data[0].id);
                 },
 				"json");
 			return false;
+		}
+		
+		 function showPortfolio(id) {
+            $.get("/acuo/api/portfolios/" + encodeURIComponent(id),
+                    function (data) {
+                        if (!data) return;
+                        showAssets(data.assets);
+                        showExposures(data.exposures);
+                    }, "json");
+            return false;
+        }
+		
+		function showAssets(assets) {
+			var t = $("table#assets tbody").empty();
+			if (!assets || assets.length == 0) return;
+			assets.forEach(function (asset) {                        
+                $("<tr><td class='asset'>" + asset.id + "</td><td>" + asset.key + "</td><td>" + asset.category + "</td></tr>").appendTo(t)                
+            });
+		}
+		
+		function showExposures(exposures) {
+			var t = $("table#exposures tbody").empty();
+			if (!exposures || exposures.length == 0) return;
+			exposures.forEach(function (exposure) {                        
+                $("<tr><td class='exposure'>" + exposure.id + "</td><td>" + exposure.key + "</td><td>" + exposure.type + "</td></tr>").appendTo(t)                
+            });
 		}
 		
 		function clients() {
