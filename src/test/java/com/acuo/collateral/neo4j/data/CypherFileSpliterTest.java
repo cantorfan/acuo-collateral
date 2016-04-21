@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import com.acuo.collateral.persist.CypherFileSpliter;
 
-@Ignore
 public class CypherFileSpliterTest {
 	
 	@Test

@@ -28,7 +28,7 @@ applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=http://neo4j:7474",
 							  "-Dneo4j.ogm.password=",
 							  "-Dneo4j.ogm.driver=org.neo4j.ogm.drivers.http.driver.HttpDriver",
 							  "-Dneo4j.ogm.packages=com.acuo.collateral.model",							 						  
-							  "-Dacuo.data.workdir=/acuo-neo4j/data",
+							  "-Dacuo.data.dir=/acuo-neo4j/data",
 							  "-Dacuo.webapp.host=0.0.0.0",
 							  "-Dacuo.webapp.root=/acuo-neo4j/webapp"
 							]
@@ -39,7 +39,7 @@ distributions {
         	from('src/main/webapp') {
         		into 'webapp'
     		}
-    		from('src/test/resources') {
+    		from('src/main/resources') {
         		into 'data'
     		}
         }

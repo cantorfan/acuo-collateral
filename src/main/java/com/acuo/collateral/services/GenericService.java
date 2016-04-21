@@ -10,8 +10,8 @@ import com.google.inject.persist.Transactional;
 @Transactional
 public abstract class GenericService<T> implements Service<T> {
 
-	private static final int DEPTH_LIST = 0;
-	private static final int DEPTH_ENTITY = 1;
+	public static final int DEPTH_LIST = 0;
+	public static final int DEPTH_ENTITY = 1;
 
 	@Inject
 	protected Session session;

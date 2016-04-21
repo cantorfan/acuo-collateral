@@ -14,21 +14,21 @@ public class SessionDataLoader implements DataLoader {
 	public static final String LOAD_ALL_CQL = "data.cql";
 	public static final String DELETE_ALL_CQL = "deleteAll.cql";
 	public static final String CONSTRAINTS_CQL = "constraints.cql";
-	
+
 	private final Session session;
 	private final CypherFileSpliter spliter;
 
 	@Inject
-	public SessionDataLoader(Session session, @Named("acuo.data.workdir") String workingDirectory) {
+	public SessionDataLoader(Session session, @Named("acuo.data.dir") String dataDirectory) {
 		this.session = session;
-		this.spliter = CypherFileSpliter.of(workingDirectory);
+		this.spliter = CypherFileSpliter.of(dataDirectory);
 	}
 
 	@Override
 	public void purgeDatabase() {
 		session.purgeDatabase();
 	}
-	
+
 	@Override
 	public void loadAll() {
 		loadDataFile(LOAD_ALL_CQL);

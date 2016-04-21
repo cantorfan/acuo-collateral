@@ -2,11 +2,11 @@ package com.acuo.collateral.neo4j.data;
 
 import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -17,71 +17,61 @@ import org.neo4j.ogm.session.Session;
 import com.acuo.collateral.persist.DataLoader;
 import com.acuo.collateral.persist.SessionDataLoader;
 
-@Ignore
 public class DataLoaderTest {
 
 	@Rule
-	public ExpectedException	expectedException	= ExpectedException.none();
-	
+	public ExpectedException expectedException = ExpectedException.none();
+
 	@Mock
 	Session session;
-		
+
 	DataLoader loader;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		
+
 		loader = new SessionDataLoader(session, "src/test/resources");
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testLoadDataWithEmptyQuery() {
 		loader.loadData("");
-		
+
 		verify(session, times(0)).query(anyString(), anyMap());
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testLoadDataWithNullQuery() {
 		loader.loadData(null);
-		
+
 		verify(session, times(0)).query(anyString(), anyMap());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testLoadDataWithDummyQuery() {
 		loader.loadData("dummy");
-		
-		verify(session, times(1)).query("dummy", anyMap());
+
+		verify(session, times(1)).query(eq("dummy"), anyMap());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testDeleteAll() {
-//		when(spliter
-//				.splitByDefaultDelimiter(SessionDataLoader.DELETE_ALL_CQL))
-//				.thenReturn(Arrays.asList("deleteAllQuery"));
-		
 		loader.purgeDatabase();
-		
-		verify(session, times(1)).query("deleteAllQuery", anyMap());
+
+		verify(session, times(1)).purgeDatabase();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testCreateConstraints() {
-//		when(spliter
-//				.splitByDefaultDelimiter(SessionDataLoader.CONSTRAINTS_CQL))
-//				.thenReturn(Arrays.asList("createConstraintsQuery"));
-		
 		loader.createConstraints();
-		
-		verify(session, times(1)).query("createConstraintsQuery", anyMap());
+
+		verify(session, times(0)).query(anyString(), anyMap());
 	}
 
 }
