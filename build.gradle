@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:2.6.8'
+    }
+}
+
 plugins {
 	id 'eclipse'
 	id 'java'
@@ -6,6 +15,7 @@ plugins {
 	id 'application'	
 	id 'jacoco'
 	id 'project-report'
+	id "com.bmuschko.docker-java-application" version "2.6.8"
 }
 
 sourceCompatibility = 1.8
@@ -13,16 +23,29 @@ targetCompatibility = 1.8
 
 mainClassName = 'com.acuo.collateral.Bootstrap'
 
-applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=http://localhost:7474",
+applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=http://neo4j:7474",
 							  "-Dneo4j.ogm.username=",
 							  "-Dneo4j.ogm.password=",
 							  "-Dneo4j.ogm.driver=org.neo4j.ogm.drivers.http.driver.HttpDriver",
-							  "-Dneo4j.ogm.packages=com.acuo.collateral.model",
-							  "-Dneo4j.ogm.datafile=data.cql",
-							  "-Dacuo.data.workdir=src/test/resources"
+							  "-Dneo4j.ogm.packages=com.acuo.collateral.model",							 						  
+							  "-Dacuo.data.workdir=/acuo-neo4j/data",
+							  "-Dacuo.webapp.host=0.0.0.0",
+							  "-Dacuo.webapp.root=/acuo-neo4j/webapp"
 							]
+
+distributions {
+    main {
+        contents {
+        	from('src/main/webapp') {
+        		into 'webapp'
+    		}
+    		from('src/test/resources') {
+        		into 'data'
+    		}
+        }
+    }
+}
 							
-httpPort = 8080
 stopPort = 9451
 stopKey = 'stop'
 
@@ -33,6 +56,13 @@ jettyRun.doFirst {
 jettyRun {
     scanIntervalSeconds = 5
     contextPath = 'acuo'
+}
+
+docker {
+    javaApplication {
+        maintainer = 'Hicham Medkouri "info@anaxo.io"'
+        port = 8080
+    }
 }
 
 /*sourceSets {

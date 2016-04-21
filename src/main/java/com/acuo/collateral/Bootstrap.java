@@ -23,19 +23,21 @@ public class Bootstrap
 
     private static Logger LOG = LoggerFactory.getLogger(Bootstrap.class);
 
+    private static final String DEFAULT_ROOT = "src/main/webapp/";
+    
     private static final String DEFAULT_PORT = "8080";
 
-    private static final String DEFAULT_HOST_URI = "http://127.0.0.1/";
+    private static final String DEFAULT_HOST_IP = "127.0.0.1";
 
     private static final String DEFAULT_URL_PATTERN = "/api/*";
 
 
     public static void main(String[] args)
     {
-        int port = Integer.valueOf(System.getProperty("app.port", DEFAULT_PORT));
-
-        URI baseUri = UriBuilder.fromUri(DEFAULT_HOST_URI).port(port).build();
-        HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(baseUri, false);
+        int port = Integer.valueOf(System.getProperty("acuo.webapp.port", DEFAULT_PORT));
+        
+        URI httpUri = UriBuilder.fromPath("/").scheme("http").host(System.getProperty("acuo.webapp.host", DEFAULT_HOST_IP)).port(port).build();
+        HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(httpUri, false);
 
         WebappContext webappContext = new WebappContext("Acuo Neo4j POC", "/acuo");
 
@@ -46,7 +48,7 @@ public class Bootstrap
         servletRegistration.addMapping(DEFAULT_URL_PATTERN);
         
         httpServer.getServerConfiguration().addHttpHandler(
-                new StaticHttpHandler("src/main/webapp/"), "/");
+                new StaticHttpHandler(System.getProperty("acuo.webapp.root", DEFAULT_ROOT)), "/");
 
         webappContext.deploy(httpServer);
 
