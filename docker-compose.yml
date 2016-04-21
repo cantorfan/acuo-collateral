@@ -9,7 +9,7 @@ neo4j:
   #volumes:
   #  - /data:/var/lib/neo4j/data
 app:
-  build: ./build/docker
+  build: ./webapp/build/docker
   ports:
     - "0.0.0.0:8080:8080"
   links:

@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.neo4j.ogm.session.Session;
 
 import com.acuo.collateral.model.Entity;
+import com.acuo.common.util.ArgChecker;
 import com.google.inject.persist.Transactional;
 
 @Transactional
@@ -33,6 +34,7 @@ public abstract class GenericService<T> implements Service<T> {
 
 	@Override
 	public T createOrUpdate(T entity) {
+		ArgChecker.notNull(entity, "entity");
 		session.save(entity, DEPTH_ENTITY);
 		return find(((Entity) entity).getId());
 	}

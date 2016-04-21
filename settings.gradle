@@ -16,4 +16,5 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'acuo-neo4j'
+rootProject.name = 'acuo-collateral'
+include 'common', 'webapp'

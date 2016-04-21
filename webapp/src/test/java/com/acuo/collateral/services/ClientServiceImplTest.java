@@ -1,5 +1,6 @@
 package com.acuo.collateral.services;
 
+import static com.acuo.common.TestHelper.matchesRegex;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -7,7 +8,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
 
@@ -21,6 +24,9 @@ import com.google.inject.Inject;
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ClientServiceModule.class, Neo4jPersistTestModule.class })
 public class ClientServiceImplTest {
+
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
 
 	@Inject
 	ClientService clientService;
@@ -51,6 +57,8 @@ public class ClientServiceImplTest {
 	@Test
 	public void testCreateOrUpdateWithNullParameter() {
 		// clientService.createOrUpdate(mock(Client.class));
+		expectedException.expect(IllegalArgumentException.class);
+		expectedException.expectMessage(matchesRegex(".*'entity'.*null.*"));
 		clientService.createOrUpdate(null);
 	}
 }
