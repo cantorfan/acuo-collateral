@@ -20,7 +20,7 @@ public class ServicesModule extends AbstractModule {
 
 	private void bindProperties() {
 		Properties properties = new Properties();
-		properties.put("acuo.data.workdir", System.getProperty("acuo.data.workdir"));
+		properties.put("acuo.data.dir", System.getProperty("acuo.data.dir"));
 		Names.bindProperties(binder(), properties);
 	}
 }
