@@ -16,15 +16,17 @@ targetCompatibility = 1.8
 
 mainClassName = 'com.acuo.collateral.Bootstrap'
 
-applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=http://neo4j:7474",
-                              "-Dneo4j.ogm.username=",
-                              "-Dneo4j.ogm.password=",
-                              "-Dneo4j.ogm.driver=org.neo4j.ogm.drivers.http.driver.HttpDriver",
-                              "-Dneo4j.ogm.packages=com.acuo.collateral.model",                                                   
-                              "-Dacuo.data.dir=/acuo-neo4j/data",
-                              "-Dacuo.webapp.host=0.0.0.0",
-                              "-Dacuo.webapp.root=/acuo-neo4j/webapp"
-                            ]
+//applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=http://neo4j:7474",
+//                              "-Dneo4j.ogm.username=",
+//                              "-Dneo4j.ogm.password=",
+//                              "-Dneo4j.ogm.driver=org.neo4j.ogm.drivers.http.driver.HttpDriver",
+//                              "-Dneo4j.ogm.packages=com.acuo.collateral.model",                                                   
+//                              "-Dacuo.data.dir=/acuo-neo4j/data",
+//                              "-Dacuo.webapp.host=0.0.0.0",
+//                              "-Dacuo.webapp.root=/acuo-neo4j/webapp"
+//                            ]
+                            
+apply from: rootProject.file('gradle/profiles.gradle');
 
 distributions {
     main {
