@@ -1,0 +1,15 @@
+LOAD CSV WITH HEADERS FROM 'file://%workingDirectory%/csv/exposures.csv' AS exposureLine
+
+MATCH (portfolio:Portfolio { portfolioId:exposureLine.PortfolioId })
+CREATE (exposure:Exposure { 	positionId:exposureLine.PositionId,
+								note:exposureLine.Note,
+								productType:exposureLine.ProductType,
+								tradeDate:exposureLine.TradeDate,
+								effectiveDate:exposureLine.EffectiveDate,
+								maturityDate:exposureLine.MaturityDate,
+								clearingDate:exposureLine.ClearingDate,
+								direction:exposureLine.Direction,
+								status:exposureLine.Status,
+								source:exposureLine.Source})
+CREATE (portfolio)-[:IS_COMPOSED_OF]->(exposure)
+;

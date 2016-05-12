@@ -19,8 +19,6 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.acuo.collateral.model.Portfolio;
-import com.acuo.collateral.services.ClientService;
 import com.acuo.collateral.services.PortfolioService;
 import com.google.inject.persist.Transactional;
 
@@ -62,7 +60,7 @@ public class PortfolioResource {
 
 		return Portfolio.createDetailed.apply(client);
 	}
-	
+
 	@GET
 	@Path("client={clientId}")
 	@ResourceDetailView
@@ -75,12 +73,13 @@ public class PortfolioResource {
 			throw new NotFoundException("Portfolio not found.");
 		}
 
-		List<Portfolio> c = StreamSupport.stream(portfolios.spliterator(), false).map(Portfolio.createDetailed).collect(Collectors.toList());
-		return  c;
+		List<Portfolio> c = StreamSupport.stream(portfolios.spliterator(), false).map(Portfolio.createDetailed)
+				.collect(Collectors.toList());
+		return c;
 	}
 
 	public static class Portfolio {
-		
+
 		public static Function<com.acuo.collateral.model.Portfolio, Portfolio> create = t -> {
 			Portfolio portfolio = new Portfolio();
 			portfolio.id = t.getId();
@@ -94,20 +93,20 @@ public class PortfolioResource {
 			Portfolio portfolio = new Portfolio();
 			portfolio.id = t.getId();
 			portfolio.name = t.getName();
-			portfolio.currency = t.getCurrency();		
-			portfolio.exposures = t.getExposures().stream().map(ExposureResource.Exposure.create).collect(Collectors.toSet());
+			portfolio.currency = t.getCurrency();
+			portfolio.exposures = t.getExposures().stream().map(ExposureResource.Exposure.create)
+					.collect(Collectors.toSet());
 			portfolio.assets = t.getAssets().stream().map(AssetResource.Asset.create).collect(Collectors.toSet());
-			
+
 			return portfolio;
 		};
 
 		public Long id;
 
 		public String name;
-		
+
 		public String currency;
-		
-		
+
 		@ResourceDetailView
 		public Set<ExposureResource.Exposure> exposures;
 

@@ -32,6 +32,7 @@ import com.google.inject.Module;
  * A JUnit class runner for Guice based applications.
  * 
  * @author Fabio Strozzi
+ * 
  */
 public class GuiceJUnitRunner extends BlockJUnit4ClassRunner {
 	private Injector injector;

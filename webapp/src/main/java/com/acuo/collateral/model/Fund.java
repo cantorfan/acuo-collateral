@@ -8,7 +8,12 @@ import org.neo4j.ogm.annotation.Relationship;
 @NodeEntity
 public class Fund extends Entity {
 
+	private String fundId;
 	private String name;
+
+	public String getFundId() {
+		return fundId;
+	}
 
 	public String getName() {
 		return name;

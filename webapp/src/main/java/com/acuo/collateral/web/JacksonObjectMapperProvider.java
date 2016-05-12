@@ -1,12 +1,12 @@
 package com.acuo.collateral.web;
 
+import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.Provider;
+
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-
-import javax.ws.rs.ext.ContextResolver;
-import javax.ws.rs.ext.Provider;
 
 @Provider
 public class JacksonObjectMapperProvider implements ContextResolver<ObjectMapper>

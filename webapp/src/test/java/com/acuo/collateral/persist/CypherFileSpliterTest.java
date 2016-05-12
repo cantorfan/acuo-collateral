@@ -1,4 +1,4 @@
-package com.acuo.collateral.neo4j.data;
+package com.acuo.collateral.persist;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -6,10 +6,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
-
-import com.acuo.collateral.persist.CypherFileSpliter;
 
 public class CypherFileSpliterTest {
 	

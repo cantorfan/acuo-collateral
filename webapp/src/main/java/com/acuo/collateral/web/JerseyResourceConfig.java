@@ -1,5 +1,7 @@
 package com.acuo.collateral.web;
 
+import javax.inject.Inject;
+
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -8,8 +10,6 @@ import org.glassfish.jersey.message.filtering.EntityFilteringFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.EncodingFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
-
-import javax.inject.Inject;
 
 public class JerseyResourceConfig extends ResourceConfig
 {

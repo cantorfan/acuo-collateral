@@ -1,5 +1,6 @@
 package com.acuo.collateral.resources;
 
+import java.util.Date;
 import java.util.function.Function;
 
 import javax.ws.rs.Consumes;
@@ -8,6 +9,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
+import com.acuo.collateral.model.Direction;
+import com.acuo.collateral.model.ProductType;
+import com.acuo.collateral.model.Status;
 import com.google.inject.persist.Transactional;
 
 @Path("/exposures")
@@ -18,15 +22,22 @@ public class ExposureResource {
 
 	public static class Exposure {
 
-		public Long id;
-		public String key;
-		public String type;
-		
+		private String positionId;
+		private String note;
+		private ProductType productType;
+		private Date tradeDate;
+		private Date effectiveDate;
+		private Date maturityDate;
+		private Date clearingDate;
+		private Direction direction;
+		private Status status;
+		private String source;
+
 		public static Function<com.acuo.collateral.model.Exposure, Exposure> create = t -> {
 			Exposure exposure = new Exposure();
-			exposure.id = t.getId();
-			exposure.key = t.getKey();
-			exposure.type = t.getType();
+			exposure.positionId = t.getPositionId();
+			exposure.direction = t.getDirection();
+			exposure.tradeDate = t.getTradeDate();
 
 			return exposure;
 		};

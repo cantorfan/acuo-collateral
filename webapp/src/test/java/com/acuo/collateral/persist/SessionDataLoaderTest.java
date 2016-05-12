@@ -1,4 +1,4 @@
-package com.acuo.collateral.neo4j.data;
+package com.acuo.collateral.persist;
 
 import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyString;
@@ -14,10 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.neo4j.ogm.session.Session;
 
-import com.acuo.collateral.persist.DataLoader;
-import com.acuo.collateral.persist.SessionDataLoader;
-
-public class DataLoaderTest {
+public class SessionDataLoaderTest {
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
@@ -58,7 +55,6 @@ public class DataLoaderTest {
 		verify(session, times(1)).query(eq("dummy"), anyMap());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testDeleteAll() {
 		loader.purgeDatabase();
