@@ -1,0 +1,91 @@
+ACCOUNT DETAILS
+	M*	Advisor Name
+	M*	Advisor LEI	
+	M	Client Account Legal Name	
+	M*	Client Account LEI	
+	M	Client Account ID	
+	M	Clearing Broker Account ID	
+	O	Sub Account ID	
+	M	Clearing House	
+	O	Account Local Currency	
+	M	Account Base Currency	
+	M	Account Conversion FX Rate
+
+DESCRIPTION
+	M*	USI	
+	O	UPI	
+	M*	Position ID Clearing House	
+	M*	Position ID Clearing Broker	
+	M*	Trade ID Affirmation Platform	
+	M	Client Transaction ID	
+	O	Client Reference Note	
+	M	Product Type	
+	M	Trade Date	
+	M	Trade Effective Date	
+	M*	FRA Payment Date	
+	M	Maturity Date	
+	O	Clearing Date	
+	M	Trade Direction	
+	M 	Source
+
+IRS DESCRIPTION
+	M	IRS Notional (Receive)	
+	M	IRS Currency (Receive)	
+	M	IRS Leg Type (Receive)	
+	M	IRS Rate Value (Receive)	
+	O	IRS Accrued Interest (Receive)	
+	M	IRS Index (Receive)	
+	O	IRS Index Tenor (Receive)	
+	O	IRS Spread (Receive)	
+	M	IRS Payment Frequency (Receive)	
+	O	IRS Reset Frequency (Receive)	
+	O	IRS Roll/Calculation Frequency (Receive)	
+	M	IRS Notional (Pay)	
+	M	IRS Currency (Pay)	
+	M	IRS Leg Type (Pay)	
+	M	IRS Rate Value (Pay)	
+	O	IRS Accrued Interest (Pay)	
+	M	IRS Index (Pay)	
+	O	IRS Index Tenor (Pay)	
+	O	IRS Spread (Pay)	
+	M	IRS Payment Frequency (Pay)	
+	O	IRS Reset Frequency (Pay)	
+	O	IRS Roll/Calculation Frequency (Pay)
+
+CDS DESCRIPTION
+
+NDF DESCRIPTION
+
+MTM
+	M	Trade MTM Dirty (Local Currency)	
+	M	Trade MTM Clean (Local Currency)	
+	M	Trade MTM Dirty (Base Currency)	
+	M	Trade MTM Clean (Base Currency)	
+	M	EOD Dirty Price (Local Currency)	
+	M	EOD Clean Price (Local Currency)
+
+VARIATION MARGIN (CLEARING BROKER)	
+	O	VM Change [CB]
+
+PRODUCT LIFECYCLE CASH FLOWS
+	M	Daily PAI Amount	
+	O	Accrued Coupon Interest	
+	O	CDS Credit Event Payment	
+	O	Total Coupon Payment Amount	
+	O	Next Coupon Payment Date	
+	O	Total Upfront Fee	
+	M	Daily Clearing Broker Fee	
+	O	Clearing Broker Fee Payment Currency	
+	M	Daily Clearing House Fee	
+	O	Clearing House Fee Payment Currency	
+	M	Daily Other Fee	
+	O	Other Fee Payment Currency	
+	M*	NDF Cash Settlement
+
+Expansion
+	M*	UTI	
+	M*	Product ID	
+	O	Package Trade ID	
+	M*	Exchange Netting ID	
+	M*	Exchange Blending ID	
+	M	Status

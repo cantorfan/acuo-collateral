@@ -1,0 +1,49 @@
+REPORT INFORMATION
+	M	As of Date	
+	M	Report Date	
+	M	Clearing Broker Name	
+	M*	Clearing Broker LEI
+
+ACCOUNT DETAILS
+	M*	Advisor Name	
+	M*	Advisor LEI	
+	M*	Client Account Legal Name	
+	M*	Client Account LEI	
+	M*	Client Account ID	
+	M	Clearing Broker	Account ID	
+	O	Sub Account ID	
+	O	Clearing House	
+	O	Account Type	
+	M	Collateral Currency	
+	O	Account Base Currency	
+	O	Reporting Currency 	
+	O	Account Conversion FX Rate
+
+REFERENCES
+	O	Custodian Name	
+	O	Custodian LEI
+
+COLLATERAL DESCRIPTION
+	O	Collateral Designation	
+	M	Collateral Type	
+	M*	Collateral Security Identifier Type	
+	M*	Collateral Security Identifier	
+	O	Secondary Collateral Security Identifier Type	
+	O	Secondary Collateral Security Identifier	
+	M	Security Description 	
+	M	Notional Value	
+	M	Settlement Flag	
+	O	Collateral Settlement Date
+
+MTM
+	M	Collateral Price	
+	M*	Factor	
+	M	Collateral Market Value	
+	M*	Collateral Haircut	
+	M*	Post Haircut Collateral Value
+
+EXPANSION
+	O*	Collateral Location	
+	O*	Location Account ID
+
+

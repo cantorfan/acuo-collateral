@@ -1,0 +1,4 @@
+LOAD CSV WITH HEADERS FROM 'file://%workingDirectory%/csv/custodians.csv' AS custodianLine
+
+CREATE (custodian:Custodian { custodianId:custodianLine.Id, name:custodianLine.Name})
+;

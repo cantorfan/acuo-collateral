@@ -3,6 +3,7 @@ package com.acuo.collateral.model;
 import java.util.Date;
 
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.DateString;
 import org.neo4j.ogm.annotation.typeconversion.EnumString;
 
@@ -74,5 +75,26 @@ public class Exposure extends Entity {
 
 	public String getSource() {
 		return source;
+	}
+
+	@Relationship(type = "IS_A")
+	private Product product;
+
+	public Product getProduct() {
+		return product;
+	}
+
+	@Relationship(type = "IS_AGAINST")
+	private Counterpart counterpart;
+
+	public Counterpart getCounterpart() {
+		return counterpart;
+	}
+
+	@Relationship(type = "IS_CLEARED_WITH")
+	private ClearingHouse clearingHouse;
+
+	public ClearingHouse getClearingHouse() {
+		return clearingHouse;
 	}
 }

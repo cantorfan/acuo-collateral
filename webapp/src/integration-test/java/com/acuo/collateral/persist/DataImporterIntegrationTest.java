@@ -14,14 +14,20 @@ import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.testutil.TestServer;
 
+import com.acuo.collateral.model.ClearingHouse;
 import com.acuo.collateral.model.Client;
+import com.acuo.collateral.model.Counterpart;
+import com.acuo.collateral.model.Custodian;
 import com.acuo.collateral.model.Exposure;
 import com.acuo.collateral.model.Fund;
 import com.acuo.collateral.model.Portfolio;
 import com.acuo.collateral.modules.ServicesModule;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
+import com.acuo.collateral.services.ClearingHouseService;
 import com.acuo.collateral.services.ClientService;
+import com.acuo.collateral.services.CounterpartService;
+import com.acuo.collateral.services.CustodianService;
 import com.acuo.collateral.services.ExposureService;
 import com.acuo.collateral.services.FundService;
 import com.acuo.collateral.services.PortfolioService;
@@ -56,11 +62,20 @@ public class DataImporterIntegrationTest {
 	ExposureService exposureService;
 
 	@Inject
+	CustodianService custodianService;
+
+	@Inject
+	CounterpartService counterpartService;
+
+	@Inject
+	ClearingHouseService clearingHouseService;
+
+	@Inject
 	Session session;
 
 	@BeforeClass
 	public static void setupTestServer() {
-		server = new TestServer.Builder().enableAuthentication(false).build();
+		server = new TestServer.Builder().enableAuthentication(false).transactionTimeoutSeconds(2).build();
 	}
 
 	@Before
@@ -132,6 +147,8 @@ public class DataImporterIntegrationTest {
 	@Test
 	public void testImportExposures() {
 		importer.importFile("clients");
+		importer.importFile("ccps");
+		importer.importFile("counterparts");
 		importer.importFile("funds");
 		importer.importFile("portfolios");
 		importer.importFile("exposures");
@@ -143,6 +160,49 @@ public class DataImporterIntegrationTest {
 		for (Exposure exposure : exposures) {
 			assertNotNull(exposure.getPositionId());
 			assertNotNull(exposure.getMaturityDate());
+		}
+	}
+
+	@Test
+	public void testImportCounterparts() {
+		importer.importFile("counterparts");
+
+		Iterable<Counterpart> counterparts = counterpartService.findAll();
+
+		assertEquals(4, Iterables.size(counterparts));
+
+		for (Counterpart counterpart : counterparts) {
+			assertNotNull(counterpart.getCounterpartId());
+			assertNotNull(counterpart.getName());
+		}
+	}
+
+	@Test
+	public void testImportClearingHouses() {
+		importer.importFile("ccps");
+
+		Iterable<ClearingHouse> clearingHouses = clearingHouseService.findAll();
+
+		assertEquals(5, Iterables.size(clearingHouses));
+
+		for (ClearingHouse clearingHouse : clearingHouses) {
+			assertNotNull(clearingHouse.getClearingHouseId());
+			assertNotNull(clearingHouse.getLei());
+			assertNotNull(clearingHouse.getName());
+		}
+	}
+
+	@Test
+	public void testImportCustodians() {
+		importer.importFile("custodians");
+
+		Iterable<Custodian> custodians = custodianService.findAll();
+
+		assertEquals(4, Iterables.size(custodians));
+
+		for (Custodian custodian : custodians) {
+			assertNotNull(custodian.getCustodianId());
+			assertNotNull(custodian.getName());
 		}
 	}
 

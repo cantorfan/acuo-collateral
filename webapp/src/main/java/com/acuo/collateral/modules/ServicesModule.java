@@ -13,5 +13,8 @@ public class ServicesModule extends AbstractModule {
 		install(new FundServiceModule());
 		install(new PortfolioServiceModule());
 		install(new ExposureServiceModule());
+		install(new CustodianServiceModule());
+		install(new CounterpartServiceModule());
+		install(new ClearingHouseServiceModule());
 	}
 }

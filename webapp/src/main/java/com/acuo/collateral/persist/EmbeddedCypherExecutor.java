@@ -11,7 +11,6 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Result;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.helpers.collection.IteratorUtil;
 
 public class EmbeddedCypherExecutor implements CypherExecutor {
 
@@ -64,7 +63,9 @@ public class EmbeddedCypherExecutor implements CypherExecutor {
 
 	private Collection<ICypherResult> getResults(Result result) {
 		List<ICypherResult> results = new ArrayList<ICypherResult>();
-		for (Map<String, Object> row : IteratorUtil.asCollection(result)) {
+		List<Map<String, Object>> list = new ArrayList<>();
+		result.forEachRemaining(list::add);
+		for (Map<String, Object> row : list) {
 			Map<String, Object> cypherResult = new HashMap<String, Object>();
 			// Yuck
 			for (Entry<String, Object> rowEntry : row.entrySet()) {
