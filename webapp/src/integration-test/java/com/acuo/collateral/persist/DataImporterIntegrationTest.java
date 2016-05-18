@@ -87,7 +87,7 @@ public class DataImporterIntegrationTest {
 
 	@Before
 	public void setup() {
-		importer = new Neo4jDataImporter(dataLoader, workingDirectory, "file://" + workingDirectory, directoryTemplate);
+		importer = new Neo4jDataImporter(dataLoader, workingDirectory, workingDirectory, directoryTemplate);
 		executor = new EmbeddedCypherExecutor(server.getGraphDatabaseService());
 	}
 
