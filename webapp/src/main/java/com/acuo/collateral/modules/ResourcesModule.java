@@ -1,5 +1,7 @@
 package com.acuo.collateral.modules;
+
 import com.acuo.collateral.resources.ClientResource;
+import com.acuo.collateral.resources.ExposureResource;
 import com.acuo.collateral.resources.ImportResource;
 import com.google.inject.AbstractModule;
 
@@ -8,9 +10,10 @@ import com.google.inject.AbstractModule;
  */
 public class ResourcesModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        bind(ClientResource.class);
-        bind(ImportResource.class);
-    }
+	@Override
+	protected void configure() {
+		bind(ClientResource.class);
+		bind(ImportResource.class);
+		bind(ExposureResource.class);
+	}
 }

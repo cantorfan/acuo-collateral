@@ -8,12 +8,17 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.transaction.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.acuo.collateral.services.Neo4jPersistService;
 import com.google.inject.persist.Transactional;
 import com.google.inject.persist.UnitOfWork;
 
 class Neo4jLocalTxnInterceptor implements MethodInterceptor {
+
+	private static final Logger LOG = LoggerFactory.getLogger(Neo4jLocalTxnInterceptor.class);
+
 	@Inject
 	private Neo4jPersistService sessionProvider;
 

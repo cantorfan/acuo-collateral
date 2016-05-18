@@ -1,4 +1,4 @@
-LOAD CSV WITH HEADERS FROM 'file://%workingDirectory%/csv/funds.csv' AS fundLine
+LOAD CSV WITH HEADERS FROM '%dataImportLink%/csv/funds.csv' AS fundLine
 
 MATCH (client:Client { clientId:fundLine.ClientId })
 MERGE (fund:Fund { fundId:fundLine.Id, name:fundLine.Name })

@@ -84,7 +84,7 @@ public class Exposure extends Entity {
 		return product;
 	}
 
-	@Relationship(type = "IS_AGAINST")
+	@Relationship(type = "IS_DEALT_WITH")
 	private Counterpart counterpart;
 
 	public Counterpart getCounterpart() {

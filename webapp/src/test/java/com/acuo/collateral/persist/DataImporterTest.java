@@ -20,14 +20,14 @@ public class DataImporterTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 
-		importer = new DataImporter(loader, "graph-data", "%s/cypher/%s.load");
+		importer = new Neo4jDataImporter(loader, "graph-data", "", "%s/cypher/%s.load");
 	}
 
 	@Test
 	public void testCreateClient() {
 		String query = "^LOAD CSV WITH HEADERS FROM.*AS clientLine.*";
 
-		importer.importFile("clients");
+		importer.importFiles("clients");
 
 		verify(loader).loadData(argThat(matchesRegex(query)));
 	}

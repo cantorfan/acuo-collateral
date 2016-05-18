@@ -6,8 +6,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.session.Session;
 
+import com.acuo.collateral.modules.PropertiesHelper;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.google.inject.persist.Transactional;
 
 public class SessionDataLoader implements DataLoader {
 
@@ -19,11 +21,12 @@ public class SessionDataLoader implements DataLoader {
 	private final CypherFileSpliter spliter;
 
 	@Inject
-	public SessionDataLoader(Session session, @Named("acuo.data.dir") String dataDirectory) {
+	public SessionDataLoader(Session session, @Named(PropertiesHelper.ACUO_DATA_DIR) String dataDirectory) {
 		this.session = session;
 		this.spliter = CypherFileSpliter.of(dataDirectory);
 	}
 
+	@Transactional
 	@Override
 	public void purgeDatabase() {
 		session.purgeDatabase();
@@ -47,6 +50,7 @@ public class SessionDataLoader implements DataLoader {
 		}
 	}
 
+	@Transactional
 	@Override
 	public void loadData(String query) {
 		if (StringUtils.isEmpty(query))

@@ -7,4 +7,6 @@ import com.acuo.collateral.model.Exposure;
 @Transient
 public interface ExposureService extends Service<Exposure> {
 
+	Iterable<Exposure> findByClientId(String clientId);
+
 }

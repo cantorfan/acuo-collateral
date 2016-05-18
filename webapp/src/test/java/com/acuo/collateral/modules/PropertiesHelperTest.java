@@ -16,36 +16,36 @@ import com.google.inject.name.Named;
 public class PropertiesHelperTest {
 
 	@Inject
-	@Named("neo4j.ogm.url")
+	@Named(PropertiesHelper.NEO4J_OGM_URL)
 	String neo4jOgmUrl;
 
 	@Inject
-	@Named("neo4j.ogm.username")
+	@Named(PropertiesHelper.NEO4J_OGM_USERNAME)
 	String neo4jOgmUsername;
 
 	@Inject
-	@Named("neo4j.ogm.password")
+	@Named(PropertiesHelper.NEO4J_OGM_PASSWORD)
 	String neo4jOgmPassword;
 
 	@Inject
-	@Named("neo4j.ogm.driver")
+	@Named(PropertiesHelper.NEO4J_OGM_DRIVER)
 	String neo4jOgmDriver;
 
 	@Inject
-	@Named("neo4j.ogm.packages")
+	@Named(PropertiesHelper.NEO4J_OGM_PACKAGES)
 	String neo4jOgmPackages;
 
 	@Inject
-	@Named("acuo.data.dir")
+	@Named(PropertiesHelper.ACUO_DATA_DIR)
 	String acuoDataDir;
 
 	@Inject
-	@Named("acuo.webapp.host")
+	@Named(PropertiesHelper.ACUO_WEBAPP_HOST)
 	String acuoWebappHost;
 
-	@Inject
-	@Named("acuo.webapp.root")
-	String acuoWebappRoot;
+	// @Inject
+	// @Named(PropertiesHelper.ACUO_WEBAPP_DIR)
+	// String acuoWebappRoot;
 
 	@Test
 	public void test() {
@@ -55,7 +55,7 @@ public class PropertiesHelperTest {
 		assertNotNull(neo4jOgmPassword);
 		assertNotNull(neo4jOgmPackages);
 		assertNotNull(acuoDataDir);
-		assertNotNull(acuoWebappRoot);
+		// assertNotNull(acuoWebappRoot);
 		assertNotNull(acuoWebappHost);
 	}
 

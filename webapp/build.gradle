@@ -28,7 +28,7 @@ apply plugin: 'com.bmuschko.docker-java-application'
 
 mainClassName = 'com.acuo.collateral.Bootstrap'
 
-applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=$config.neo4jServerName",
+/*applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=$config.neo4jServerName",
                               "-Dneo4j.ogm.username=",
                               "-Dneo4j.ogm.password=",
                               "-Dneo4j.ogm.driver=org.neo4j.ogm.drivers.http.driver.HttpDriver",
@@ -36,7 +36,7 @@ applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=$config.neo4jServerName",
                               "-Dacuo.data.dir=$config.dataDir",
                               "-Dacuo.webapp.host=0.0.0.0",
                               "-Dacuo.webapp.root=$config.webappRoot"
-                            ]
+                            ]*/
 
 distributions {
     main {
@@ -44,8 +44,11 @@ distributions {
             from('src/main/webapp') {
                 into 'webapp'
             }
-            from('src/main/resources') {
-                into 'data'
+            from('src/main/resources/graph-data') {
+                into 'webapp/graph-data'
+            }
+            from('src/main/resources/config') {
+                into 'data/config'
             }
         }
     }

@@ -8,6 +8,7 @@ public class ServicesModule extends AbstractModule {
 		install(new PropertiesHelper.IntegrationPropertiesModule());
 		install(new Neo4jPersistModule());
 		install(new DataLoaderModule());
+		install(new DataImporterModule());
 		install(new ImportServiceModule());
 		install(new ClientServiceModule());
 		install(new FundServiceModule());

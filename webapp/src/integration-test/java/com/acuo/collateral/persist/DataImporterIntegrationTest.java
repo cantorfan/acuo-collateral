@@ -21,6 +21,7 @@ import com.acuo.collateral.model.Custodian;
 import com.acuo.collateral.model.Exposure;
 import com.acuo.collateral.model.Fund;
 import com.acuo.collateral.model.Portfolio;
+import com.acuo.collateral.modules.PropertiesHelper;
 import com.acuo.collateral.modules.ServicesModule;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
@@ -34,6 +35,7 @@ import com.acuo.collateral.services.PortfolioService;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ServicesModule.class })
@@ -43,8 +45,13 @@ public class DataImporterIntegrationTest {
 	private DataImporter importer;
 	private CypherExecutor executor;
 
-	private String workingDirectory = "graph-data";
-	private String directoryTemplate = "%s/cypher/%s.load";
+	@Inject
+	@Named(PropertiesHelper.ACUO_DATA_DIR)
+	private String workingDirectory;
+
+	@Inject
+	@Named(PropertiesHelper.ACUO_CYPHER_DIR_TEMPLATE)
+	private String directoryTemplate;
 
 	@Inject
 	DataLoader dataLoader;
@@ -80,13 +87,13 @@ public class DataImporterIntegrationTest {
 
 	@Before
 	public void setup() {
-		importer = new DataImporter(dataLoader, workingDirectory, directoryTemplate);
+		importer = new Neo4jDataImporter(dataLoader, workingDirectory, "file://" + workingDirectory, directoryTemplate);
 		executor = new EmbeddedCypherExecutor(server.getGraphDatabaseService());
 	}
 
 	@Test
 	public void testImportClients() {
-		importer.importFile("clients");
+		importer.importFiles("clients");
 
 		Iterable<Client> clients = clientService.findAll();
 
@@ -100,8 +107,7 @@ public class DataImporterIntegrationTest {
 
 	@Test
 	public void testImportFunds() {
-		importer.importFile("clients");
-		importer.importFile("funds");
+		importer.importFiles("clients", "funds");
 
 		Iterable<Fund> funds = fundService.findAll();
 
@@ -122,9 +128,7 @@ public class DataImporterIntegrationTest {
 
 	@Test
 	public void testImportPortfolios() {
-		importer.importFile("clients");
-		importer.importFile("funds");
-		importer.importFile("portfolios");
+		importer.importFiles("clients", "funds", "portfolios");
 
 		Iterable<Portfolio> portfolios = portfolioService.findAll();
 
@@ -146,12 +150,7 @@ public class DataImporterIntegrationTest {
 
 	@Test
 	public void testImportExposures() {
-		importer.importFile("clients");
-		importer.importFile("ccps");
-		importer.importFile("counterparts");
-		importer.importFile("funds");
-		importer.importFile("portfolios");
-		importer.importFile("exposures");
+		importer.importFiles("clients", "ccps", "counterparts", "funds", "portfolios", "exposures");
 
 		Iterable<Exposure> exposures = exposureService.findAll();
 
@@ -165,7 +164,7 @@ public class DataImporterIntegrationTest {
 
 	@Test
 	public void testImportCounterparts() {
-		importer.importFile("counterparts");
+		importer.importFiles("counterparts");
 
 		Iterable<Counterpart> counterparts = counterpartService.findAll();
 
@@ -179,7 +178,7 @@ public class DataImporterIntegrationTest {
 
 	@Test
 	public void testImportClearingHouses() {
-		importer.importFile("ccps");
+		importer.importFiles("ccps");
 
 		Iterable<ClearingHouse> clearingHouses = clearingHouseService.findAll();
 
@@ -194,7 +193,7 @@ public class DataImporterIntegrationTest {
 
 	@Test
 	public void testImportCustodians() {
-		importer.importFile("custodians");
+		importer.importFiles("custodians");
 
 		Iterable<Custodian> custodians = custodianService.findAll();
 

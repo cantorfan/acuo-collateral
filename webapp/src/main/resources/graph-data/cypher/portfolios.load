@@ -1,4 +1,4 @@
-LOAD CSV WITH HEADERS FROM 'file://%workingDirectory%/csv/portfolios.csv' AS portfolioLine
+LOAD CSV WITH HEADERS FROM '%dataImportLink%/csv/portfolios.csv' AS portfolioLine
 
 MATCH (fund:Fund { fundId:portfolioLine.FundId })
 MERGE (portfolio:Portfolio { portfolioId:portfolioLine.Id, name:portfolioLine.Name, currency:portfolioLine.Currency })

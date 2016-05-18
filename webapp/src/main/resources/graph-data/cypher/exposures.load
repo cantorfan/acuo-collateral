@@ -1,8 +1,8 @@
-LOAD CSV WITH HEADERS FROM 'file://%workingDirectory%/csv/exposures.csv' AS exposureLine
+LOAD CSV WITH HEADERS FROM '%dataImportLink%/csv/exposures.csv' AS exposureLine
 
 MATCH (portfolio:Portfolio { portfolioId:exposureLine.PortfolioId })
 MATCH (clearingHouse:ClearingHouse { clearingHouseId:exposureLine.ClearingHouseId })
-MATCH (counterpart:Couterpart { counterpartId:exposureLine.CounterpartId })
+MATCH (counterpart:Counterpart { counterpartId:exposureLine.CounterpartId })
 CREATE (exposure:Exposure { 	positionId:exposureLine.PositionId,
 								note:exposureLine.Note,
 								productType:exposureLine.ProductType,

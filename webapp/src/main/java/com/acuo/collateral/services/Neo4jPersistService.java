@@ -8,6 +8,7 @@ import org.neo4j.ogm.session.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.acuo.collateral.modules.PropertiesHelper;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -24,9 +25,11 @@ public class Neo4jPersistService implements Provider<Session>, UnitOfWork, Persi
 	private SessionFactory sessionFactory;
 
 	@Inject
-	Neo4jPersistService(@Named("neo4j.ogm.driver") String driver, @Named("neo4j.ogm.url") String url,
-			@Named("neo4j.ogm.username") String userName, @Named("neo4j.ogm.password") String password,
-			@Named("neo4j.ogm.packages") String packages) {
+	Neo4jPersistService(@Named(PropertiesHelper.NEO4J_OGM_DRIVER) String driver,
+			@Named(PropertiesHelper.NEO4J_OGM_URL) String url,
+			@Named(PropertiesHelper.NEO4J_OGM_USERNAME) String userName,
+			@Named(PropertiesHelper.NEO4J_OGM_PASSWORD) String password,
+			@Named(PropertiesHelper.NEO4J_OGM_PACKAGES) String packages) {
 		LOG.info("Creating a Neo4j persistence service using driver [{}] and url[{}]", driver, url);
 		sessions = new ThreadLocal<>();
 		Configuration configuration = Components.configuration();
