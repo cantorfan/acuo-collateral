@@ -47,7 +47,9 @@ subprojects { Project subproject ->
 		testCompile (
 			'org.codehaus.groovy:groovy-all:[2,3)',
 			'junit:junit:4.12',
-        	'org.mockito:mockito-core:1.10.19',
+        	'org.mockito:mockito-core:2.0.52-beta',
+        	'info.solidsoft.mockito:mockito-java8:2.0.0-beta.2',
+        	'org.assertj:assertj-core:3.4.1',
 			'org.spockframework:spock-core:0.7-groovy-2.0'
 		)
 	}

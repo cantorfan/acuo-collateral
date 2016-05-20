@@ -1,9 +1,7 @@
 package com.acuo.collateral.resources;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -20,10 +18,11 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.acuo.collateral.model.Direction;
 import com.acuo.collateral.model.ProductType;
-import com.acuo.collateral.model.Status;
 import com.acuo.collateral.resources.CounterpartResource.Counterpart;
+import com.acuo.collateral.resources.view.Exposure;
+import com.acuo.collateral.resources.view.Exposures;
+import com.acuo.collateral.resources.view.ProductSet;
 import com.acuo.collateral.services.ExposureService;
 import com.google.inject.persist.Transactional;
 
@@ -67,9 +66,35 @@ public class ExposureResource {
 	}
 
 	@GET
-	@Path("/client/{clientId}")
+	@Path("/ByProductSetAndCount/{clientId}")
 	@ResourceDetailView
-	public Map<Counterpart, List<Exposure>> findByClientId(@PathParam("clientId") String clientId) {
+	public Map<ProductSet, Integer> aggregateByProductSetAndCount(@PathParam("clientId") String clientId) {
+		Exposures report = retrieveExposures(clientId);
+
+		return report.classifyByProductSetAndCount();
+	}
+
+	@GET
+	@Path("/ByCounterPartAndProductType/{clientId}")
+	@ResourceDetailView
+	public Map<Counterpart, Map<ProductType, Long>> aggregateByCounterPartAndProductType(
+			@PathParam("clientId") String clientId) {
+
+		Exposures report = retrieveExposures(clientId);
+
+		return report.classifyByCounterPartAndProductType();
+	}
+
+	@GET
+	@Path("/ByCounterPartAndProductSet/{clientId}")
+	@ResourceDetailView
+	public Map<Counterpart, Map<ProductSet, Long>> aggregateByCounterPartAndProductSet(
+			@PathParam("clientId") String clientId) {
+		Exposures report = retrieveExposures(clientId);
+		return report.classifyByCounterPartAndProductSet();
+	}
+
+	private Exposures retrieveExposures(String clientId) {
 		LOG.trace("Retrieving client Id: [{}]", clientId);
 
 		Iterable<com.acuo.collateral.model.Exposure> exposures = exposureService.findByClientId(clientId);
@@ -78,48 +103,10 @@ public class ExposureResource {
 			throw new NotFoundException("Exposure not found.");
 		}
 
-		Map<Counterpart, List<Exposure>> map = StreamSupport.stream(exposures.spliterator(), false)
-				.map(Exposure.createDetailed).collect(Collectors.groupingBy(a -> a.counterpart));
-		return map;
-	}
+		List<Exposure> exp = StreamSupport.stream(exposures.spliterator(), false).map(Exposure.createDetailed)
+				.collect(Collectors.toList());
 
-	public static class Exposure {
-
-		public String positionId;
-		public String note;
-		public ProductType productType;
-		public Date tradeDate;
-		public Date effectiveDate;
-		public Date maturityDate;
-		public Date clearingDate;
-		public Direction direction;
-		public Status status;
-		public String source;
-		public Counterpart counterpart;
-
-		public static Function<com.acuo.collateral.model.Exposure, Exposure> create = t -> {
-			Exposure exposure = new Exposure();
-			exposure.positionId = t.getPositionId();
-			exposure.note = t.getNote();
-			exposure.productType = t.getProductType();
-			exposure.tradeDate = t.getTradeDate();
-			exposure.effectiveDate = t.getEffectiveDate();
-			exposure.maturityDate = t.getMaturityDate();
-			exposure.clearingDate = t.getClearingDate();
-			exposure.direction = t.getDirection();
-			exposure.status = t.getStatus();
-			exposure.source = t.getSource();
-
-			return exposure;
-		};
-
-		public static Function<com.acuo.collateral.model.Exposure, Exposure> createDetailed = t -> {
-			Exposure exposure = Exposure.create.apply(t);
-			exposure.counterpart = Counterpart.create.apply(t.getCounterpart());
-
-			return exposure;
-		};
-
+		return new Exposures(exp);
 	}
 
 }

@@ -18,6 +18,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.joda.convert.StringConvert;
+import org.mockito.ArgumentMatcher;
 
 /**
  * Test helper.
@@ -104,6 +105,16 @@ public class TestHelper {
 			@Override
 			public void describeTo(Description description) {
 				description.appendText("The argument value doesn't match the regexp ").appendValue(regex);
+			}
+		};
+	}
+
+	public static ArgumentMatcher<String> matchesArgRegex(final String regex) {
+		return new ArgumentMatcher<String>() {
+			@Override
+			public boolean matches(final Object item) {
+				Pattern exp = Pattern.compile(regex, Pattern.DOTALL);
+				return exp.matcher((String) item).find();
 			}
 		};
 	}

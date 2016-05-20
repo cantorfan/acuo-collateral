@@ -1,7 +1,5 @@
 package com.acuo.collateral.services;
 
-import java.util.Collections;
-
 import org.neo4j.ogm.session.Session;
 
 import com.acuo.collateral.model.Exposure;
@@ -23,8 +21,7 @@ public class ExposureServiceImpl extends GenericService<Exposure> implements Exp
 	@Override
 	public Iterable<Exposure> findByClientId(String clientId) {
 		String query = "MATCH (client:Client {clientId:{clientId}})-[*]-(exposure:Exposure)-[w:IS_DEALT_WITH]->(counterpart:Counterpart) return exposure, w, counterpart";
-		Iterable<Exposure> results = Collections.EMPTY_LIST;
-		results = session.query(Exposure.class, query, ImmutableMap.of("clientId", clientId));
+		Iterable<Exposure> results = session.query(Exposure.class, query, ImmutableMap.of("clientId", clientId));
 		return results;
 	}
 

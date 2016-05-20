@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.acuo.collateral.resources.view.Exposure;
 import com.acuo.collateral.services.PortfolioService;
 import com.google.inject.persist.Transactional;
 
@@ -94,8 +95,7 @@ public class PortfolioResource {
 			portfolio.id = t.getId();
 			portfolio.name = t.getName();
 			portfolio.currency = t.getCurrency();
-			portfolio.exposures = t.getExposures().stream().map(ExposureResource.Exposure.create)
-					.collect(Collectors.toSet());
+			portfolio.exposures = t.getExposures().stream().map(Exposure.create).collect(Collectors.toSet());
 			portfolio.assets = t.getAssets().stream().map(AssetResource.Asset.create).collect(Collectors.toSet());
 
 			return portfolio;
@@ -108,7 +108,7 @@ public class PortfolioResource {
 		public String currency;
 
 		@ResourceDetailView
-		public Set<ExposureResource.Exposure> exposures;
+		public Set<Exposure> exposures;
 
 		@ResourceDetailView
 		public Set<AssetResource.Asset> assets;

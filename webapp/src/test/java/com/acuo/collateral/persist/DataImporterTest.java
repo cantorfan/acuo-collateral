@@ -1,6 +1,6 @@
 package com.acuo.collateral.persist;
 
-import static com.acuo.common.TestHelper.matchesRegex;
+import static com.acuo.common.TestHelper.matchesArgRegex;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.verify;
 
@@ -29,6 +29,6 @@ public class DataImporterTest {
 
 		importer.importFiles("clients");
 
-		verify(loader).loadData(argThat(matchesRegex(query)));
+		verify(loader).loadData(argThat(matchesArgRegex(query)));
 	}
 }

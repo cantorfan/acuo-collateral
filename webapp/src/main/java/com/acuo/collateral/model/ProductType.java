@@ -1,5 +1,5 @@
 package com.acuo.collateral.model;
 
 public enum ProductType {
-	CDX, CDS, IRS, NDF;
+	CDX, CDS, IRS, NDF, FUTURES, BILTERAL;
 }
