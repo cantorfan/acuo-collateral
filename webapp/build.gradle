@@ -113,7 +113,7 @@ dependencies {
         
 		"org.jboss.resteasy:resteasy-jaxrs:${versions.resteasy}",
 		"org.jboss.resteasy:resteasy-guice:${versions.resteasy}",
-		"org.jboss.resteasy:resteasy-jackson-provider:${versions.resteasy}",
+		"org.jboss.resteasy:resteasy-jackson2-provider:${versions.resteasy}",
 		
 		"com.smokejumperit.guice:core:1.1",
 		"io.jsonwebtoken:jjwt:0.6.0",
@@ -122,9 +122,10 @@ dependencies {
 
     testCompile project(path: ':common', configuration: 'tests')
     testCompile (
-        'com.graphaware.neo4j:tests:2.3.3.37',
-        'org.neo4j:neo4j-ogm-test:2.0.1',
-        'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.22.2'
+        "com.graphaware.neo4j:tests:2.3.3.37",
+        "org.neo4j:neo4j-ogm-test:2.0.1",
+        "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.22.2",
+        "com.jayway.jsonpath:json-path-assert:2.2.0"
     )
 }
 

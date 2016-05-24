@@ -6,7 +6,6 @@ import java.util.function.Function;
 import com.acuo.collateral.model.Direction;
 import com.acuo.collateral.model.ProductType;
 import com.acuo.collateral.model.Status;
-import com.acuo.collateral.resources.CounterpartResource.Counterpart;
 
 public class Exposure {
 

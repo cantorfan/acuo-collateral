@@ -1,5 +1,6 @@
 package com.acuo.collateral.resources;
 
+import static com.jayway.jsonassert.JsonAssert.with;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
@@ -8,9 +9,11 @@ import java.net.URISyntaxException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.resteasy.core.Dispatcher;
-import org.jboss.resteasy.mock.MockDispatcherFactory;
+import org.jboss.resteasy.core.SynchronousDispatcher;
 import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
+import org.jboss.resteasy.plugins.providers.RegisterBuiltin;
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,7 @@ import com.acuo.collateral.modules.Neo4jPersistTestModule;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 import com.acuo.collateral.services.ExposureService;
+import com.acuo.collateral.web.JacksonObjectMapperProvider;
 import com.google.inject.Inject;
 
 @RunWith(GuiceJUnitRunner.class)
@@ -34,9 +38,8 @@ public class ExposureResourceTest {
 	@Before
 	public void setup() {
 		ExposureResource resource = new ExposureResource(exposureService);
-		dispatcher = MockDispatcherFactory.createDispatcher();
+		dispatcher = createDispatcher();
 		dispatcher.getRegistry().addSingletonResource(resource);
-
 	}
 
 	@Test
@@ -58,7 +61,41 @@ public class ExposureResourceTest {
 		dispatcher.invoke(request, response);
 
 		assertEquals(HttpServletResponse.SC_OK, response.getStatus());
-		assertThat(response.getContentAsString()).contains("productType").contains("counterpartId");
-		System.out.println(response.getContentAsString());
+		assertThat(response.getContentAsString()).contains("productType").contains("JPM");
+	}
+
+	@Test
+	public void testFindByClientIdAndAggregateByProductSetAndCount() throws URISyntaxException {
+		MockHttpRequest request = MockHttpRequest.get("/exposures/ByProductSetAndCount/client1");
+		MockHttpResponse response = new MockHttpResponse();
+
+		dispatcher.invoke(request, response);
+
+		assertEquals(HttpServletResponse.SC_OK, response.getStatus());
+		assertThat(response.getContentAsString()).contains("{\"ETD\":1}");
+	}
+
+	@Test
+	public void testFindByClientIdAndAggregateByCounterPartAndProductType() throws URISyntaxException {
+		MockHttpRequest request = MockHttpRequest.get("/exposures/ByCounterPartAndProductType/client1");
+		MockHttpResponse response = new MockHttpResponse();
+
+		dispatcher.invoke(request, response);
+
+		assertEquals(HttpServletResponse.SC_OK, response.getStatus());
+		String json = response.getContentAsString();
+
+		System.out.println(json);
+
+		assertThat(json).contains("{\"JPM\":{\"FUTURES\":1}}");
+		with(json).assertEquals("$.JPM.FUTURES", 1);
+	}
+
+	public static Dispatcher createDispatcher() {
+		ResteasyProviderFactory.getInstance().registerProvider(JacksonObjectMapperProvider.class);
+		Dispatcher dispatcher = new SynchronousDispatcher(ResteasyProviderFactory.getInstance());
+		ResteasyProviderFactory.setInstance(dispatcher.getProviderFactory());
+		RegisterBuiltin.register(dispatcher.getProviderFactory());
+		return dispatcher;
 	}
 }

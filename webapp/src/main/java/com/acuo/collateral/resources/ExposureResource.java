@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.acuo.collateral.model.ProductType;
-import com.acuo.collateral.resources.CounterpartResource.Counterpart;
+import com.acuo.collateral.resources.view.Counterpart;
 import com.acuo.collateral.resources.view.Exposure;
 import com.acuo.collateral.resources.view.Exposures;
 import com.acuo.collateral.resources.view.ProductSet;

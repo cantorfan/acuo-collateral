@@ -10,7 +10,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.acuo.collateral.model.ProductType;
-import com.acuo.collateral.resources.CounterpartResource.Counterpart;
 import com.acuo.common.util.ArgChecker;
 
 public class Exposures {

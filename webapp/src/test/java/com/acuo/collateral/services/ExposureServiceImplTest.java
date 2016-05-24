@@ -3,19 +3,23 @@ package com.acuo.collateral.services;
 import static com.acuo.common.TestHelper.matchesRegex;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Collections;
+import java.util.Map;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.neo4j.ogm.session.Session;
 
 import com.acuo.collateral.model.Counterpart;
 import com.acuo.collateral.model.Exposure;
+import com.acuo.collateral.model.ProductType;
 import com.acuo.collateral.modules.ExposureServiceModule;
 import com.acuo.collateral.modules.Neo4jPersistTestModule;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
@@ -32,12 +36,18 @@ public class ExposureServiceImplTest {
 	@Inject
 	ExposureService exposureService;
 
+	@SuppressWarnings("unchecked")
 	public static void stub(Session session) {
 		Exposure mockExposure = mock(Exposure.class);
+		Counterpart mockCounterpart = mock(Counterpart.class);
 		when(session.loadAll(Exposure.class, GenericService.DEPTH_LIST))
 				.thenReturn(Collections.singletonList(mockExposure));
 		when(session.load(Exposure.class, 1l, GenericService.DEPTH_ENTITY)).thenReturn(mockExposure);
-		when(mockExposure.getCounterpart()).thenReturn(mock(Counterpart.class));
+		when(session.query(Matchers.<Class<Exposure>> any(), any(String.class), any(Map.class)))
+				.thenReturn(Collections.singletonList(mockExposure));
+		when(mockCounterpart.getName()).thenReturn("JPM");
+		when(mockExposure.getCounterpart()).thenReturn(mockCounterpart);
+		when(mockExposure.getProductType()).thenReturn(ProductType.FUTURES);
 	}
 
 	@Test

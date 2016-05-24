@@ -41,14 +41,6 @@ public class ExposuresTest implements WithBDDMockito {
 		new Exposures(null);
 	}
 
-	// @Test
-	// public void testClassifyByProductSet() {
-	// Exposures exposures = new Exposures(listofExposures);
-	// assertThat(exposures.classifyByProductSet()).containsOnlyKeys(ProductSet.ETD,
-	// ProductSet.CLEARED)
-	// .doesNotContainKeys(ProductSet.BILATERAL, ProductSet.UNKNOWN);
-	// }
-
 	@Test
 	public void testClassifyByProductSetAndCount() {
 		Exposures exposures = new Exposures(listofExposures);
@@ -63,16 +55,6 @@ public class ExposuresTest implements WithBDDMockito {
 		assertThat(exposures).extracting(Exposures::toString).containsOnly("");
 	}
 
-	// @Test
-	// public void testToString() {
-	// Exposures exposures = new Exposures(listofExposures);
-	// assertThat(exposures.classifyByProductSet()).containsOnlyKeys(ProductSet.ETD,
-	// ProductSet.CLEARED)
-	// .doesNotContainKeys(ProductSet.BILATERAL, ProductSet.UNKNOWN);
-	// assertThat(exposures).extracting(Exposures::toString).containsOnly("1,
-	// 2");
-	// }
-
 	private void prepareMock(List<Exposure> exposures) {
 		Exposure exposure = Mockito.mock(Exposure.class);
 		given(exposure.getPositionId()).willReturn("1", "2");
@@ -81,5 +63,4 @@ public class ExposuresTest implements WithBDDMockito {
 		exposures.add(exposure);
 		exposures.add(exposure);
 	}
-
 }

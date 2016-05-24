@@ -13,6 +13,7 @@ public final class JacksonModule extends AbstractModule {
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		objectMapper.registerModule(new JavaTimeModule());
+		objectMapper.registerModule(new CustomModule());
 		SerializationConfig config = objectMapper.getSerializationConfig()
 				.withoutFeatures(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
@@ -20,4 +21,5 @@ public final class JacksonModule extends AbstractModule {
 
 		bind(ObjectMapper.class).toInstance(objectMapper);
 	}
+
 }
