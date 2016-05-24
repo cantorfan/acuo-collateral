@@ -14,6 +14,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
 
+import com.acuo.collateral.model.Counterpart;
 import com.acuo.collateral.model.Exposure;
 import com.acuo.collateral.modules.ExposureServiceModule;
 import com.acuo.collateral.modules.Neo4jPersistTestModule;
@@ -32,8 +33,11 @@ public class ExposureServiceImplTest {
 	ExposureService exposureService;
 
 	public static void stub(Session session) {
+		Exposure mockExposure = mock(Exposure.class);
 		when(session.loadAll(Exposure.class, GenericService.DEPTH_LIST))
-				.thenReturn(Collections.singletonList(mock(Exposure.class)));
+				.thenReturn(Collections.singletonList(mockExposure));
+		when(session.load(Exposure.class, 1l, GenericService.DEPTH_ENTITY)).thenReturn(mockExposure);
+		when(mockExposure.getCounterpart()).thenReturn(mock(Counterpart.class));
 	}
 
 	@Test

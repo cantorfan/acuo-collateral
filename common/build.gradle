@@ -1,10 +1,21 @@
+ext.versions += [
+	guice: '4.0'
+]
+
 dependencies {
     compile (
-        'org.joda:joda-convert:1.8.1'
+        "org.joda:joda-convert:1.8.1",
+        "com.google.code.findbugs:jsr305:3.0.1",
+        "org.eclipse.jetty:jetty-servlet:9.3.5.v20151012",
+        "com.google.inject:guice:${versions.guice}",
+        "com.google.inject.extensions:guice-servlet:${versions.guice}",
+  		"com.google.inject.extensions:guice-assistedinject:${versions.guice}"
     )
 
     testCompile (
-        'com.tngtech.java:junit-dataprovider:1.10.4'
+        "com.tngtech.java:junit-dataprovider:1.10.4",
+        "org.apache.httpcomponents:httpclient:4.3.3",
+  		"org.easymock:easymock:3.3"
     )
 }
 

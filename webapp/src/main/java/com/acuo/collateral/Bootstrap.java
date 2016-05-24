@@ -1,5 +1,10 @@
 package com.acuo.collateral;
 
+import static com.acuo.collateral.modules.PropertiesHelper.ACUO_DATA_DIR;
+import static com.acuo.collateral.modules.PropertiesHelper.ACUO_WEBAPP_DIR;
+import static com.acuo.collateral.modules.PropertiesHelper.ACUO_WEBAPP_HOST;
+import static com.acuo.collateral.modules.PropertiesHelper.ACUO_WEBAPP_PORT;
+
 import java.io.IOException;
 import java.net.URI;
 
@@ -15,7 +20,6 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.acuo.collateral.modules.PropertiesHelper;
 import com.acuo.collateral.web.JerseyGuiceServletContextListener;
 import com.acuo.collateral.web.JerseyResourceConfig;
 
@@ -34,10 +38,12 @@ public class Bootstrap {
 	private static final String DEFAULT_URL_PATTERN = "/api/*";
 
 	public static void main(String[] args) {
-		int port = Integer.valueOf(System.getProperty(PropertiesHelper.ACUO_WEBAPP_PORT, DEFAULT_PORT));
 
-		URI httpUri = UriBuilder.fromPath("/").scheme("http")
-				.host(System.getProperty(PropertiesHelper.ACUO_WEBAPP_HOST, DEFAULT_HOST_IP)).port(port).build();
+		int port = Integer.valueOf(System.getProperty(ACUO_WEBAPP_PORT, DEFAULT_PORT));
+
+		String ipAddress = System.getProperty(ACUO_WEBAPP_HOST, DEFAULT_HOST_IP);
+
+		URI httpUri = UriBuilder.fromPath("/").scheme("http").host(ipAddress).port(port).build();
 		HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(httpUri, false);
 
 		WebappContext webappContext = new WebappContext("Acuo Neo4j POC", "/acuo");
@@ -48,12 +54,12 @@ public class Bootstrap {
 		servletRegistration.setInitParameter("javax.ws.rs.Application", JerseyResourceConfig.class.getName());
 		servletRegistration.addMapping(DEFAULT_URL_PATTERN);
 
-		String webappRootDir = System.getProperty(PropertiesHelper.ACUO_WEBAPP_DIR, DEFAULT_WEBAPP_DIR);
+		String webappRootDir = System.getProperty(ACUO_WEBAPP_DIR, DEFAULT_WEBAPP_DIR);
 		httpServer.getServerConfiguration().addHttpHandler(new StaticHttpHandler(webappRootDir), "/");
 
-		String dataRootDir = System.getProperty(PropertiesHelper.ACUO_DATA_DIR, DEFAULT_DATA_DIR);
+		String dataRootDir = System.getProperty(ACUO_DATA_DIR, DEFAULT_DATA_DIR);
 		httpServer.getServerConfiguration().addHttpHandler(new CLStaticHttpHandler(Bootstrap.class.getClassLoader()),
-				"/data");
+				dataRootDir);
 
 		webappContext.deploy(httpServer);
 
