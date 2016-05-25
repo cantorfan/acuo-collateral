@@ -5,7 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.acuo.collateral.modules.PropertiesHelper.IntegrationPropertiesModule;
+import com.acuo.collateral.modules.configuration.IntegrationPropertiesModule;
+import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 import com.google.inject.Inject;
@@ -43,9 +44,9 @@ public class PropertiesHelperTest {
 	@Named(PropertiesHelper.ACUO_WEBAPP_HOST)
 	String acuoWebappHost;
 
-	// @Inject
-	// @Named(PropertiesHelper.ACUO_WEBAPP_DIR)
-	// String acuoWebappRoot;
+	@Inject
+	@Named(PropertiesHelper.ACUO_WEBAPP_PORT)
+	Integer acuoWebappPort;
 
 	@Test
 	public void test() {
@@ -55,8 +56,8 @@ public class PropertiesHelperTest {
 		assertNotNull(neo4jOgmPassword);
 		assertNotNull(neo4jOgmPackages);
 		assertNotNull(acuoDataDir);
-		// assertNotNull(acuoWebappRoot);
 		assertNotNull(acuoWebappHost);
+		assertNotNull(acuoWebappPort);
 	}
 
 }

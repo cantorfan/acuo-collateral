@@ -1,9 +1,9 @@
 package com.acuo.collateral;
 
-import static com.acuo.collateral.modules.PropertiesHelper.ACUO_DATA_DIR;
-import static com.acuo.collateral.modules.PropertiesHelper.ACUO_WEBAPP_DIR;
-import static com.acuo.collateral.modules.PropertiesHelper.ACUO_WEBAPP_HOST;
-import static com.acuo.collateral.modules.PropertiesHelper.ACUO_WEBAPP_PORT;
+import static com.acuo.collateral.modules.configuration.PropertiesHelper.ACUO_DATA_DIR;
+import static com.acuo.collateral.modules.configuration.PropertiesHelper.ACUO_WEBAPP_DIR;
+import static com.acuo.collateral.modules.configuration.PropertiesHelper.ACUO_WEBAPP_HOST;
+import static com.acuo.collateral.modules.configuration.PropertiesHelper.ACUO_WEBAPP_PORT;
 
 import java.io.IOException;
 import java.net.URI;

@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules;
+package com.acuo.collateral.modules.persistence;
 
 import com.acuo.collateral.persist.DataImporter;
 import com.acuo.collateral.persist.Neo4jDataImporter;

@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules;
+package com.acuo.collateral.modules.persistence;
 
 import java.lang.reflect.Method;
 

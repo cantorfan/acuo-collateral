@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules;
+package com.acuo.collateral.modules.persistence;
 
 import com.acuo.collateral.persist.DataLoader;
 import com.acuo.collateral.persist.SessionDataLoader;

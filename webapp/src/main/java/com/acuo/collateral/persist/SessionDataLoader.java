@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.session.Session;
 
-import com.acuo.collateral.modules.PropertiesHelper;
+import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.inject.persist.Transactional;
