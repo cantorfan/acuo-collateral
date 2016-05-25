@@ -14,11 +14,10 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.inject.Provider;
 import javax.servlet.ServletContextListener;
 
 import org.eclipse.jetty.server.handler.ContextHandler;
-
-import com.google.inject.Provider;
 
 /**
  * Config info for {@link HttpServerWrapper}.

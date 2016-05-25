@@ -6,13 +6,14 @@ import static com.acuo.collateral.modules.configuration.PropertiesHelper.ACUO_WE
 import static com.acuo.collateral.modules.configuration.PropertiesHelper.ACUO_WEBAPP_PORT;
 import static com.acuo.collateral.modules.configuration.PropertiesHelper.ACUO_WEBAPP_REST_MAPPING_PREFIX;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.eclipse.jetty.util.resource.Resource;
 
 import com.acuo.common.http.server.HttpResourceHandlerConfig;
 import com.acuo.common.http.server.HttpServerConnectorConfig;
 import com.acuo.common.http.server.HttpServerWrapperConfig;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 public class ResteasyConfigImpl implements ResteasyConfig {
 

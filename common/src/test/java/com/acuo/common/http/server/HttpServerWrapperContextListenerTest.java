@@ -1,5 +1,20 @@
 package com.acuo.common.http.server;
 
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+import java.util.logging.LogManager;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.easymock.EasyMock;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.slf4j.bridge.SLF4JBridgeHandler;
+
 import com.google.common.collect.Lists;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -7,19 +22,6 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
-import org.easymock.EasyMock;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.slf4j.bridge.SLF4JBridgeHandler;
-
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import java.util.List;
-import java.util.logging.LogManager;
-
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertNotNull;
 
 public class HttpServerWrapperContextListenerTest {
 

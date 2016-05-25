@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.common.util.ArgChecker;
 import com.google.common.io.Resources;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 
 @Singleton
 public class Neo4jDataImporter implements DataImporter {

@@ -1,6 +1,7 @@
 package com.acuo.collateral.resources;
 
 import javax.annotation.Priority;
+import javax.inject.Inject;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.FeatureContext;
 
@@ -9,7 +10,6 @@ import org.glassfish.jersey.ServiceLocatorProvider;
 import org.jvnet.hk2.guice.bridge.api.GuiceBridge;
 import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 @Priority(1)

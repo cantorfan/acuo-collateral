@@ -1,5 +1,9 @@
 package com.acuo.collateral.services;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Provider;
+
 import org.neo4j.ogm.authentication.UsernamePasswordCredentials;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.service.Components;
@@ -9,10 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.UnitOfWork;
 

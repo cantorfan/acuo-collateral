@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,8 +37,6 @@ import com.acuo.collateral.services.FundService;
 import com.acuo.collateral.services.PortfolioService;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ServicesModule.class })

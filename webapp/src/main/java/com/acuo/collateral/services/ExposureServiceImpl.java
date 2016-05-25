@@ -1,10 +1,11 @@
 package com.acuo.collateral.services;
 
+import javax.inject.Inject;
+
 import org.neo4j.ogm.session.Session;
 
 import com.acuo.collateral.model.Exposure;
 import com.google.common.collect.ImmutableMap;
-import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 
 public class ExposureServiceImpl extends GenericService<Exposure> implements ExposureService {

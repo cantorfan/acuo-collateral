@@ -8,6 +8,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 
+import javax.inject.Inject;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,7 +21,6 @@ import com.acuo.collateral.modules.Neo4jPersistTestModule;
 import com.acuo.collateral.modules.entities.ClientServiceModule;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
-import com.google.inject.Inject;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ClientServiceModule.class, Neo4jPersistTestModule.class })

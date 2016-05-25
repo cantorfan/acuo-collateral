@@ -1,7 +1,8 @@
 package com.acuo.common.type;
 
+import static com.acuo.common.TestHelper.assertJodaConvert;
+import static com.acuo.common.TestHelper.assertSerialization;
 import static org.junit.Assert.assertEquals;
-import static com.acuo.common.TestHelper.*;
 
 import org.junit.Test;
 

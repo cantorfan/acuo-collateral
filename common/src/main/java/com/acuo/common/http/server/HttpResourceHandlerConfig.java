@@ -1,12 +1,13 @@
 package com.acuo.common.http.server;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import org.eclipse.jetty.http.MimeTypes;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.util.resource.Resource;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * Config for serving static files.

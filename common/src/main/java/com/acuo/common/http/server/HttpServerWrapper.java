@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.concurrent.ThreadSafe;
+import javax.inject.Inject;
 import javax.servlet.DispatcherType;
 
 import org.eclipse.jetty.server.Handler;
@@ -27,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.servlet.GuiceFilter;
 

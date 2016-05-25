@@ -3,12 +3,13 @@ package com.acuo.collateral.persist;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.session.Session;
 
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.google.inject.persist.Transactional;
 
 public class SessionDataLoader implements DataLoader {

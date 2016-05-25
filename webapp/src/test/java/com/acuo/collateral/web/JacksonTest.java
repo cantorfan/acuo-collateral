@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +18,6 @@ import com.acuo.collateral.resources.view.Counterpart;
 import com.acuo.collateral.resources.view.Exposure;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.inject.Inject;
 
 @RunWith(value = GuiceJUnitRunner.class)
 @GuiceModules(value = { JacksonModule.class })

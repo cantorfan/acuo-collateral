@@ -1,8 +1,9 @@
 package com.acuo.collateral.services;
 
+import javax.inject.Inject;
+
 import com.acuo.collateral.persist.DataImporter;
 import com.acuo.collateral.persist.DataLoader;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton

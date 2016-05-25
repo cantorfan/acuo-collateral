@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URISyntaxException;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.resteasy.core.Dispatcher;
@@ -24,7 +25,6 @@ import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 import com.acuo.collateral.services.ExposureService;
 import com.acuo.collateral.web.JacksonObjectMapperProvider;
-import com.google.inject.Inject;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ExposureServiceModule.class, Neo4jPersistTestModule.class })

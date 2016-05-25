@@ -2,6 +2,9 @@ package com.acuo.collateral.persist;
 
 import static org.junit.Assert.assertNotNull;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,8 +19,6 @@ import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 import com.acuo.collateral.services.ExposureService;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ServicesModule.class })
