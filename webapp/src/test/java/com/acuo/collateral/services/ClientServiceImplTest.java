@@ -15,8 +15,8 @@ import org.junit.runner.RunWith;
 import org.neo4j.ogm.session.Session;
 
 import com.acuo.collateral.model.Client;
-import com.acuo.collateral.modules.ClientServiceModule;
 import com.acuo.collateral.modules.Neo4jPersistTestModule;
+import com.acuo.collateral.modules.entities.ClientServiceModule;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 import com.google.inject.Inject;

@@ -8,7 +8,7 @@ import org.neo4j.ogm.session.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.acuo.collateral.modules.PropertiesHelper;
+import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;

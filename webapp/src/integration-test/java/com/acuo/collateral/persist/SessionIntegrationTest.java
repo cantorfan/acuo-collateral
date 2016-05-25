@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
 import org.neo4j.ogm.testutil.TestServer;
 
 import com.acuo.collateral.model.Exposure;
-import com.acuo.collateral.modules.PropertiesHelper;
 import com.acuo.collateral.modules.ServicesModule;
+import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 import com.acuo.collateral.services.ExposureService;

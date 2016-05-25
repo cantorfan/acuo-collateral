@@ -12,7 +12,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.acuo.collateral.modules.PropertiesHelper;
+import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.common.util.ArgChecker;
 import com.google.common.io.Resources;
 import com.google.inject.Inject;

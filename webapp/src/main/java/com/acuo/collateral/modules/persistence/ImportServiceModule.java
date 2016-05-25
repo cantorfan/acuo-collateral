@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules;
+package com.acuo.collateral.modules.persistence;
 
 import com.acuo.collateral.services.ImportService;
 import com.acuo.collateral.services.Neo4jImportService;

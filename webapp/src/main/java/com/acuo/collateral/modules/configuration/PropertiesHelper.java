@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules;
+package com.acuo.collateral.modules.configuration;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,8 +9,8 @@ import com.smokejumperit.guice.properties.PropertiesModule;
 public class PropertiesHelper {
 
 	private static final String PROPERTIES_DIR_TEMPLATE = "/config/%s/%s";
-	private static final String DEFAULTS_PROPERTIES_FILE = "defaults.properties";
-	private static final String OVERRIDES_PROPERTIES_FILE = "overrides.properties";
+	static final String DEFAULTS_PROPERTIES_FILE = "defaults.properties";
+	static final String OVERRIDES_PROPERTIES_FILE = "overrides.properties";
 
 	public static final String NEO4J_OGM_URL = "neo4j.ogm.url";
 	public static final String NEO4J_OGM_USERNAME = "neo4j.ogm.username";
@@ -24,20 +24,11 @@ public class PropertiesHelper {
 	public static final String ACUO_WEBAPP_HOST = "acuo.webapp.host";
 	public static final String ACUO_WEBAPP_PORT = "acuo.webapp.port";
 	public static final String ACUO_WEBAPP_DIR = "acuo.webapp.dir";
+	public static final String ACUO_WEBAPP_CTX_PATH = "acuo.webapp.context.path";
+	public static final String ACUO_WEBAPP_REST_MAPPING_PREFIX = "acuo.webapp.rest.servlet.mapping.prefix";
 
-	public static class IntegrationPropertiesModule extends PropertiesModule {
-
-		public IntegrationPropertiesModule() {
-			super(getDefaultProperties(), getOverrides());
-		}
-
-		private static Properties getOverrides() {
-			return getPropertiesFrom("INT", OVERRIDES_PROPERTIES_FILE);
-		}
-
-		private static Properties getDefaultProperties() {
-			return getPropertiesFrom("INT", DEFAULTS_PROPERTIES_FILE);
-		}
+	public static PropertiesModule getPropertiesModule() {
+		return new IntegrationPropertiesModule();
 	}
 
 	static Properties getPropertiesFrom(String env, String fileName) {

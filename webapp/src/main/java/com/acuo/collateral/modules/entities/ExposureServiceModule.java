@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules;
+package com.acuo.collateral.modules.entities;
 
 import com.acuo.collateral.services.ExposureService;
 import com.acuo.collateral.services.ExposureServiceImpl;

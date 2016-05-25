@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules;
+package com.acuo.collateral.modules.persistence;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.neo4j.ogm.session.Session;

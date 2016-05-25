@@ -18,8 +18,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.acuo.collateral.modules.ExposureServiceModule;
 import com.acuo.collateral.modules.Neo4jPersistTestModule;
+import com.acuo.collateral.modules.entities.ExposureServiceModule;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 import com.acuo.collateral.services.ExposureService;
