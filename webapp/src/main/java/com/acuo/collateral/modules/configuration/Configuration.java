@@ -22,7 +22,7 @@ public class Configuration {
 		return environment;
 	}
 
-	static class Builder {
+	public static class Builder {
 
 		private final AppId appId;
 		private Environment environment = Environment.TEST;

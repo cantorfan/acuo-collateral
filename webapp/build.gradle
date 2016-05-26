@@ -2,6 +2,7 @@ buildscript {
     repositories {
         jcenter()
     }
+    
     sourceSets {
     	integrationTest {
         	java {
@@ -33,17 +34,10 @@ apply plugin: 'application'
 apply plugin: 'com.bmuschko.docker-java-application'
  
 
-mainClassName = 'com.acuo.collateral.Bootstrap'
-
-/*applicationDefaultJvmArgs = [ "-Dneo4j.ogm.url=$config.neo4jServerName",
-                              "-Dneo4j.ogm.username=",
-                              "-Dneo4j.ogm.password=",
-                              "-Dneo4j.ogm.driver=org.neo4j.ogm.drivers.http.driver.HttpDriver",
-                              "-Dneo4j.ogm.packages=com.acuo.collateral.model",                                                   
-                              "-Dacuo.data.dir=$config.dataDir",
-                              "-Dacuo.webapp.host=0.0.0.0",
-                              "-Dacuo.webapp.root=$config.webappRoot"
-                            ]*/
+mainClassName = 'com.acuo.collateral.ResteasyMain'
+applicationDefaultJvmArgs = [ "-Dacuo.config.appid=webapp",
+                              "-Dacuo.config.env=test"
+                            ]
 
 distributions {
     main {
@@ -117,7 +111,8 @@ dependencies {
 		
 		"com.smokejumperit.guice:core:1.1",
 		"io.jsonwebtoken:jjwt:0.6.0",
-        "org.mindrot:jbcrypt:0.3m"
+        "org.mindrot:jbcrypt:0.3m",
+        "com.opengamma.strata:strata-collect:0.13.0"
     )
 
     testCompile project(path: ':common', configuration: 'tests')

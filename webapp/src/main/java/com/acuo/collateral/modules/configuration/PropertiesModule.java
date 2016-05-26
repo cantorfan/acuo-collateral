@@ -1,10 +1,13 @@
 package com.acuo.collateral.modules.configuration;
 
+import javax.inject.Inject;
+
 import com.google.inject.AbstractModule;
 
 public class PropertiesModule extends AbstractModule {
 
-	private Configuration configuration = Configuration.builder(AppId.of("webapp")).build();
+	@Inject
+	private Configuration configuration;
 
 	@Override
 	protected void configure() {

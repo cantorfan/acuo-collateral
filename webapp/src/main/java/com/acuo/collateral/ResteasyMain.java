@@ -10,6 +10,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.acuo.collateral.modules.ResourcesModule;
 import com.acuo.collateral.modules.ServicesModule;
+import com.acuo.collateral.modules.configuration.ConfigurationModule;
 import com.acuo.collateral.web.JacksonModule;
 import com.acuo.common.http.server.BinderProviderCapture;
 import com.acuo.common.http.server.HttpServerWrapperConfig;
@@ -56,6 +57,7 @@ class ResteasyMain {
 
 			install(new HttpServerWrapperModule());
 			install(new JacksonModule());
+			install(new ConfigurationModule());
 			install(new ServicesModule());
 			install(new ResourcesModule());
 

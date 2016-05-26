@@ -24,6 +24,7 @@ import com.acuo.collateral.model.Custodian;
 import com.acuo.collateral.model.Exposure;
 import com.acuo.collateral.model.Fund;
 import com.acuo.collateral.model.Portfolio;
+import com.acuo.collateral.modules.ConfigurationTestModule;
 import com.acuo.collateral.modules.ServicesModule;
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
@@ -39,7 +40,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 
 @RunWith(GuiceJUnitRunner.class)
-@GuiceModules({ ServicesModule.class })
+@GuiceModules({ ConfigurationTestModule.class, ServicesModule.class })
 public class DataImporterIntegrationTest {
 
 	private static TestServer server;
