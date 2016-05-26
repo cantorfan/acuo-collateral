@@ -1,6 +1,6 @@
 package com.acuo.collateral.modules;
 
-import com.acuo.collateral.modules.configuration.PropertiesHelper;
+import com.acuo.collateral.modules.configuration.PropertiesModule;
 import com.acuo.collateral.modules.entities.ClearingHouseServiceModule;
 import com.acuo.collateral.modules.entities.ClientServiceModule;
 import com.acuo.collateral.modules.entities.CounterpartServiceModule;
@@ -17,7 +17,7 @@ import com.google.inject.AbstractModule;
 public class ServicesModule extends AbstractModule {
 	@Override
 	protected void configure() {
-		install(PropertiesHelper.getPropertiesModule());
+		install(new PropertiesModule());
 		install(new Neo4jPersistModule());
 		install(new DataLoaderModule());
 		install(new DataImporterModule());

@@ -8,13 +8,13 @@ import javax.inject.Named;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.acuo.collateral.modules.configuration.IntegrationPropertiesModule;
+import com.acuo.collateral.modules.configuration.PropertiesModule;
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
 import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 
 @RunWith(GuiceJUnitRunner.class)
-@GuiceModules({ IntegrationPropertiesModule.class })
+@GuiceModules({ PropertiesModule.class })
 public class PropertiesHelperTest {
 
 	@Inject

@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import com.smokejumperit.guice.properties.PropertiesModule;
+import com.acuo.common.util.ArgChecker;
 
 public class PropertiesHelper {
 
-	private static final String PROPERTIES_DIR_TEMPLATE = "/config/%s/%s";
-	static final String DEFAULTS_PROPERTIES_FILE = "defaults.properties";
-	static final String OVERRIDES_PROPERTIES_FILE = "overrides.properties";
+	private static final String DEFAULTS_PROPERTIES_TEMPLATE = "/%s.properties";
+	private static final String OVERRIDES_PROPERTIES_TEMPLATE = "/%s-%s.properties";
 
 	public static final String NEO4J_OGM_URL = "neo4j.ogm.url";
 	public static final String NEO4J_OGM_USERNAME = "neo4j.ogm.username";
@@ -27,15 +26,42 @@ public class PropertiesHelper {
 	public static final String ACUO_WEBAPP_CTX_PATH = "acuo.webapp.context.path";
 	public static final String ACUO_WEBAPP_REST_MAPPING_PREFIX = "acuo.webapp.rest.servlet.mapping.prefix";
 
-	public static PropertiesModule getPropertiesModule() {
-		return new IntegrationPropertiesModule();
+	private final Configuration configuration;
+
+	private PropertiesHelper(Configuration configuration) {
+		this.configuration = configuration;
+		configuration.getAppId();
 	}
 
-	static Properties getPropertiesFrom(String env, String fileName) {
-		String propertiesFilePath = String.format(PROPERTIES_DIR_TEMPLATE, env, fileName);
+	public static PropertiesHelper of(Configuration configuration) {
+		ArgChecker.notNull(configuration, "configuration");
+		return new PropertiesHelper(configuration);
+	}
+
+	public Properties getOverrides() {
+		return getPropertiesFrom(overrideFilePath());
+	}
+
+	public Properties getDefaultProperties() {
+		return getPropertiesFrom(defaultFilePath());
+	}
+
+	private String overrideFilePath() {
+		AppId appId = configuration.getAppId();
+		Environment environment = configuration.getEnvironment();
+		return String.format(OVERRIDES_PROPERTIES_TEMPLATE, appId.toString(), environment.toString());
+	}
+
+	private String defaultFilePath() {
+		AppId appId = configuration.getAppId();
+		return String.format(DEFAULTS_PROPERTIES_TEMPLATE, appId.toString());
+	}
+
+	private Properties getPropertiesFrom(String propertiesFilePath) {
 		final Properties properties = new Properties();
 		try (final InputStream stream = PropertiesHelper.class.getResourceAsStream(propertiesFilePath)) {
-			properties.load(stream);
+			if (stream != null)
+				properties.load(stream);
 		} catch (IOException e) {
 		}
 		return properties;
