@@ -1,6 +1,6 @@
 allprojects {
 	repositories {
-		jcenter()
+		jcenter()		
     }	    
 	group = 'com.acuo.collateral'
 	version = '1.0'
@@ -42,9 +42,12 @@ subprojects { Project subproject ->
 	subproject.apply plugin:'jacoco'
 	
 	subproject.repositories {
-		mavenCentral()
 		jcenter()
 		mavenLocal()
+		mavenCentral()
+		maven {
+        	url "http://maven.opengamma.com/nexus/content/groups/public"
+    	}
 	}
   
 	subproject.dependencies {		
