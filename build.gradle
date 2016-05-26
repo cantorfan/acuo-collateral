@@ -45,9 +45,6 @@ subprojects { Project subproject ->
 		jcenter()
 		mavenLocal()
 		mavenCentral()
-		maven {
-        	url "http://maven.opengamma.com/nexus/content/groups/public"
-    	}
 	}
   
 	subproject.dependencies {		
