@@ -35,8 +35,8 @@ apply plugin: 'com.bmuschko.docker-java-application'
  
 
 mainClassName = 'com.acuo.collateral.ResteasyMain'
-applicationDefaultJvmArgs = [ "-Dacuo.config.appid=webapp",
-                              "-Dacuo.config.env=test"
+applicationDefaultJvmArgs = [ "-Dacuo.config.appid=${config.appId}",
+                              "-Dacuo.config.env=${config.env}"
                             ]
 
 distributions {
@@ -75,6 +75,8 @@ docker {
 }
 
 task printProperties << {
+    println config.appId
+    println config.env
     println versions.resteasy
     println versions.slf4j
     println versions.guice
