@@ -14,7 +14,7 @@ services:
   #volumes:
   #	- /data:/var/lib/neo4j/data
  app:
-  build: .
+  build: ./build
   #image: localhost:5000/com.acuo.collateral/webapp:1.0
   ports:
    - "0.0.0.0:8080:8080"  

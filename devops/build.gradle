@@ -1,13 +1,9 @@
-dependencies {
-    compile project(":webapp")
-}
-
 def name = project(":webapp").name
 def imageName = "localhost:5000/${project.group}/${name}:${version}"
 
 task writeDockerfile() {
   description = 'Generates a new Dockerfile for the current version.'  
-  def dockerfile = new File('Dockerfile')
+  def dockerfile = new File('build/Dockerfile')
   dockerfile.write ""
   dockerfile << "FROM java\n"
   dockerfile << "MAINTAINER Hicham Medkouri \"info@anaxo.io\"\n"

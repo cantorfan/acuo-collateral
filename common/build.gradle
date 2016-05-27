@@ -1,3 +1,6 @@
+apply from: "$rootDir/gradle/java-plugins.gradle"
+apply from: "$rootDir/gradle/dependencies.gradle"
+	
 ext.versions += [
 	guice: '4.0'
 ]
@@ -18,17 +21,4 @@ dependencies {
         "org.apache.httpcomponents:httpclient:4.3.3",
   		"org.easymock:easymock:3.3"
     )
-}
-
-task testJar(type: Jar, dependsOn: testClasses) {
-    baseName = "test-${project.archivesBaseName}"
-    from sourceSets.test.output
-}
-
-configurations {
-    tests
-}
-
-artifacts {
-    tests testJar
 }

@@ -1,15 +1,11 @@
 allprojects {
 	repositories {
-		jcenter()		
+		jcenter()
+		mavenLocal()
+		mavenCentral()		
     }	    
 	group = 'com.acuo.collateral'
-	version = '1.0'
-	
-	ext.versions = [
-		slf4j: '1.7.21',		
-		guava: '19.0',
-		logback: '1.1.7'
-	]
+	version = '1.0'	
 }
 
 def loadConfiguration() {
@@ -29,93 +25,4 @@ configure (subprojects) {
 configurations.all {
     // check for updates every build
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
-subprojects { Project subproject ->
-	subproject.apply plugin: 'java'
-	subproject.apply plugin:'groovy'
-	subproject.apply plugin:'eclipse'
-	subproject.apply plugin:'idea'
-	subproject.apply plugin:'project-report'
-	subproject.apply plugin:'osgi'
-	subproject.apply plugin:'maven-publish'
-	subproject.apply plugin:'jacoco'
-	
-	subproject.repositories {
-		jcenter()
-		mavenLocal()
-		mavenCentral()
-	}
-  
-	subproject.dependencies {		
-		compile (
-			"org.slf4j:slf4j-api:${versions.slf4j}",			
-			"org.slf4j:jul-to-slf4j:${versions.slf4j}",
-			"org.apache.commons:commons-lang3:3.4",
-			"commons-lang:commons-lang:2.6",
-			"com.google.guava:guava:${versions.guava}"
-		)
-		testCompile (
-			"org.codehaus.groovy:groovy-all:[2,3)",
-			"junit:junit:4.12",
-        	"org.mockito:mockito-core:2.0.52-beta",
-        	"info.solidsoft.mockito:mockito-java8:2.0.0-beta.2",
-        	"org.assertj:assertj-core:3.4.1",
-			"org.spockframework:spock-core:0.7-groovy-2.0"
-		)
-		runtime (
-			"ch.qos.logback:logback-classic:${versions.logback}",
-			"ch.qos.logback:logback-access:${versions.logback}",
-			"org.slf4j:log4j-over-slf4j:${versions.slf4j}",
-			"org.slf4j:jcl-over-slf4j:${versions.slf4j}"
-		)
-           
-	}
-
-	subproject.sourceCompatibility = 1.8
-	subproject.targetCompatibility = 1.8
-
-	subproject.task('sourcesJar', type: Jar, dependsOn: subproject.classes) {
-			classifier = 'sources'
-			subproject.sourceSets.each { SourceSet ss ->
-				from ss.allSource
-			}
-	}
-
-	subproject.task('javadocJar', type: Jar, dependsOn: javadoc) {
-			classifier = 'javadoc'
-			from javadoc.destinationDir
-	}
-
-	subproject.artifacts {
-			archives subproject.sourcesJar, subproject.javadocJar
-	}
-
-	subproject.publishing {
-			publications {
-					mavenJava(MavenPublication) {
-							if (plugins.hasPlugin('war')) {
-									from components.web
-							} else {
-									from components.java
-							}
-
-							artifact sourcesJar {
-									classifier "sources"
-							}
-
-							artifact javadocJar {
-									classifier "javadoc"
-							}
-					}
-			}
-	}
-
-	subproject.tasks.javadoc {
-		options.links(
-			"http://docs.oracle.com/javase/8/docs/api/",
-			"https://google.github.io/guice/api-docs/latest/javadoc/"
-		)
-		options.linkSource true
-	}
 }
