@@ -6,11 +6,11 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 7474, host: 7474  
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   
-  #config.vm.synced_folder "./data", "/data"
+  #config.vm.synced_folder "./webapp/src/main/resources", "/data"
 
   config.vm.define "vb", autostart: false do |vb_vm|
     vb_vm.vm.provider "virtualbox" do |vb|
-      vb_vm.vm.box = "ubuntu/wily64"
+      vb_vm.vm.box = "ubuntu/wily64"      
       vb.name = "vagrant-acuo"
       vb.gui = false
       vb.customize ["modifyvm", :id, "--memory", "4096"]

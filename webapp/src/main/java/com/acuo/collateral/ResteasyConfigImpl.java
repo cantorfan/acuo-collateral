@@ -10,12 +10,16 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.jetty.util.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.acuo.common.http.server.HttpResourceHandlerConfig;
 import com.acuo.common.http.server.HttpServerConnectorConfig;
 import com.acuo.common.http.server.HttpServerWrapperConfig;
 
 public class ResteasyConfigImpl implements ResteasyConfig {
+
+	private static final Logger LOG = LoggerFactory.getLogger(ResteasyConfigImpl.class);
 
 	@Inject
 	@Named(ACUO_WEBAPP_PORT)
@@ -39,18 +43,25 @@ public class ResteasyConfigImpl implements ResteasyConfig {
 
 	@Override
 	public HttpServerWrapperConfig getConfig() {
+		LOG.info("building an http server config with data [{}], context [{}], ip [{}], port [{}], mapping prefix [{}]",
+				dataRootDir, contextPath, ipAddress, port, mappingPrefix);
+
 		HttpResourceHandlerConfig withGraphData = new HttpResourceHandlerConfig()
 				.withBaseResource(Resource.newClassPathResource(dataRootDir)).withDirectoryListing(true)
-				.withContextPath(dataRootDir);
+				.withContextPath(formatContextPath(dataRootDir));
 
 		HttpServerWrapperConfig config = new HttpServerWrapperConfig().withResourceHandlerConfig(withGraphData)
 				.withHttpServerConnectorConfig(HttpServerConnectorConfig.forHttp(ipAddress, port));
 
-		config.setContextPath(contextPath);
+		config.setContextPath(formatContextPath(contextPath));
 
 		config.addInitParameter("resteasy.servlet.mapping.prefix", mappingPrefix);
 
 		return config;
+	}
+
+	private static String formatContextPath(String contextPath) {
+		return contextPath.startsWith("/") ? contextPath : "/" + contextPath;
 	}
 
 }

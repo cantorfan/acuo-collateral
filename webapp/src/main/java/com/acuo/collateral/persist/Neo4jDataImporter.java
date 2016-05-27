@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.common.util.ArgChecker;
+import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.google.inject.Singleton;
 
@@ -37,11 +38,13 @@ public class Neo4jDataImporter implements DataImporter {
 			@Named(PropertiesHelper.ACUO_DATA_IMPORT_LINK) String dataImportLink,
 			@Named(PropertiesHelper.ACUO_CYPHER_DIR_TEMPLATE) String directoryTemplate) {
 		this.loader = loader;
-		this.workingDirPath = Resources.getResource(dataDir).getPath();
+		this.workingDirPath = dataDir;
 		this.dataDirPath = getDataLink(dataImportLink);
 		this.directoryTemplate = directoryTemplate;
 		substitutions.put("%workingDirPath%", workingDirPath);
 		substitutions.put("%dataImportLink%", dataDirPath);
+		LOG.info("data importer created with working [{}] data [{}] template [{}]", workingDirPath, dataDirPath,
+				directoryTemplate);
 	}
 
 	private String getDataLink(String dataImportLink) {
@@ -59,7 +62,7 @@ public class Neo4jDataImporter implements DataImporter {
 		try {
 			String filePath = String.format(directoryTemplate, workingDirPath, fileNames);
 			LOG.info("Importing files [{}] from {}", fileNames, filePath);
-			File file = FileUtils.getFile(filePath);
+			String file = Resources.toString(Resources.getResource(filePath), Charsets.UTF_8); // FileUtils.getFile(filePath);
 			String query = buildQuery(file, substitutions);
 			loader.loadData(query);
 		} catch (Exception e) {
@@ -72,6 +75,13 @@ public class Neo4jDataImporter implements DataImporter {
 		ArgChecker.isTrue(cypherFile.exists(), "File: " + cypherFile.getName() + " does not exist!");
 		String query = FileUtils.readFileToString(cypherFile, ENCODING);
 		query = replacePlaceHolders(query, substitutions.entrySet());
+		LOG.debug("{}", query);
+		return query;
+	}
+
+	private String buildQuery(String file, Map<String, String> substitutions) throws IOException {
+		ArgChecker.notNull(file, "file");
+		String query = replacePlaceHolders(file, substitutions.entrySet());
 		LOG.debug("{}", query);
 		return query;
 	}

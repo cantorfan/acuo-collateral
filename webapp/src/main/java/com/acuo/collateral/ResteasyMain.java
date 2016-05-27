@@ -6,6 +6,8 @@ import javax.servlet.ServletContextListener;
 
 import org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.acuo.collateral.modules.ResourcesModule;
@@ -23,7 +25,9 @@ import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 
-class ResteasyMain {
+public class ResteasyMain {
+
+	private static final Logger LOG = LoggerFactory.getLogger(ResteasyMain.class);
 
 	public static void main(String[] args) throws Exception {
 

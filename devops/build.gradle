@@ -1,0 +1,53 @@
+dependencies {
+    compile project(":webapp")
+}
+
+def name = project(":webapp").name
+def imageName = "localhost:5000/${project.group}/${name}:${version}"
+
+task writeDockerfile() {
+  description = 'Generates a new Dockerfile for the current version.'  
+  def dockerfile = new File('Dockerfile')
+  dockerfile.write ""
+  dockerfile << "FROM java\n"
+  dockerfile << "MAINTAINER Hicham Medkouri \"info@anaxo.io\"\n"
+  dockerfile << "ADD /build/${name}-${version}.tar /\n"
+  dockerfile << "ENTRYPOINT [\"/${name}-${version}/bin/webapp\"]\n"
+  dockerfile << "EXPOSE 8080"  
+}
+
+task copyTar(type: Copy, dependsOn: ":webapp:distTar") {    
+    from project(":webapp").collect { it.tasks.withType(Tar) }
+    into "$buildDir"
+}
+
+task dockerBuildImage(type:Exec, dependsOn: [writeDockerfile, copyTar]) {   
+   group = 'docker' 
+   commandLine 'docker', 'build', '-t', imageName, '.'
+}
+ 
+task dockerPushImage(type:Exec, dependsOn: dockerBuildImage) {   
+   group = 'docker' 
+   commandLine 'docker', 'push', imageName
+}
+
+/*
+dependencies {
+ classpath 'com.bmuschko:gradle-docker-plugin:2.6.8'
+}
+
+apply plugin: 'com.bmuschko.docker-java-application'
+
+docker {
+    
+    javaApplication {
+        maintainer = 'Hicham Medkouri "info@anaxo.io"'
+        port = 8080
+        tag = "acuo/webapp:latest"
+    }
+    
+    registryCredentials {
+        url = "http://localhost"        
+    }
+}
+*/

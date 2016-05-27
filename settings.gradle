@@ -1,3 +1,4 @@
 rootProject.name = 'acuo-collateral'
 include 'common'
 include 'webapp'
+include 'devops'

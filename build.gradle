@@ -114,7 +114,7 @@ subprojects { Project subproject ->
 	subproject.tasks.javadoc {
 		options.links(
 			"http://docs.oracle.com/javase/8/docs/api/",
-			"https://google-guice.googlecode.com/git/javadoc/"
+			"https://google.github.io/guice/api-docs/latest/javadoc/"
 		)
 		options.linkSource true
 	}
