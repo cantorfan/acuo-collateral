@@ -3,6 +3,7 @@ package com.acuo.collateral.resources.view;
 import static com.acuo.common.TestHelper.matchesRegex;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
+import static org.mockito.BDDMockito.given;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,9 +19,7 @@ import org.mockito.Spy;
 
 import com.acuo.collateral.model.ProductType;
 
-import info.solidsoft.mockito.java8.api.WithBDDMockito;
-
-public class ExposuresTest implements WithBDDMockito {
+public class ExposuresTest {
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();

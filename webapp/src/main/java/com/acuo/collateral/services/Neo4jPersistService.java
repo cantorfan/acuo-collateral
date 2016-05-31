@@ -6,7 +6,6 @@ import javax.inject.Provider;
 
 import org.neo4j.ogm.authentication.UsernamePasswordCredentials;
 import org.neo4j.ogm.config.Configuration;
-import org.neo4j.ogm.service.Components;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 import org.slf4j.Logger;
@@ -33,10 +32,10 @@ public class Neo4jPersistService implements Provider<Session>, UnitOfWork, Persi
 			@Named(PropertiesHelper.NEO4J_OGM_PACKAGES) String packages) {
 		LOG.info("Creating a Neo4j persistence service using driver [{}] and url[{}]", driver, url);
 		sessions = new ThreadLocal<>();
-		Configuration configuration = Components.configuration();
+		Configuration configuration = new Configuration();
 		configuration.driverConfiguration().setDriverClassName(driver).setURI(url)
 				.setCredentials(new UsernamePasswordCredentials(userName, password));
-		this.sessionFactory = new SessionFactory(packages);
+		this.sessionFactory = new SessionFactory(configuration, packages);
 	}
 
 	@Override

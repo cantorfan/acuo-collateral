@@ -3,6 +3,9 @@ apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/integration-test.gradle"
 
 ext.versions += [
+	neo4j: '3.0.1',
+	neo4jOgm: '2.0.2',
+	neo4jBolt: '1.0.1',
 	guice: '4.0',
 	jackson: '2.7.4',
 	resteasy: '3.0.16.Final'	
@@ -96,10 +99,13 @@ dependencies {
         "org.glassfish.hk2:guice-bridge:2.4.0",
         "org.codehaus.jackson:jackson-mapper-asl:1.9.13",
         
-        "org.neo4j:neo4j-ogm-core:2.0.1",
-        "org.neo4j:neo4j-ogm-http-driver:2.0.1",
-        "org.neo4j:neo4j-ogm-embedded-driver:2.0.1",
-        "org.neo4j:neo4j-kernel:2.3.3",
+        
+        "org.neo4j:neo4j:${versions.neo4j}",
+        "org.neo4j.driver:neo4j-java-driver:${versions.neo4jBolt}",
+                        
+        "org.neo4j:neo4j-ogm-core:${versions.neo4jOgm}",
+        "org.neo4j:neo4j-ogm-http-driver:${versions.neo4jOgm}",
+        "org.neo4j:neo4j-ogm-embedded-driver:${versions.neo4jOgm}",
                 
         "com.google.inject:guice:${versions.guice}",
 		"com.google.inject.extensions:guice-servlet:${versions.guice}",
@@ -115,13 +121,13 @@ dependencies {
 		
 		"com.smokejumperit.guice:core:1.1",
 		"io.jsonwebtoken:jjwt:0.6.0",
-        "org.mindrot:jbcrypt:0.3m",
+        "org.mindrot:jbcrypt:0.3m"
     )
-
+   
     testCompile project(path: ':common', configuration: 'tests')
-    testCompile (
-        "com.graphaware.neo4j:tests:2.3.3.37",
-        "org.neo4j:neo4j-ogm-test:2.0.1",
+    testCompile (        
+        "org.neo4j.test:neo4j-harness:${versions.neo4j}",
+        "org.neo4j:neo4j-ogm-test:2.0.2",
         "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.22.2",
         "com.jayway.jsonpath:json-path-assert:2.2.0"
     )

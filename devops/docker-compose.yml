@@ -2,10 +2,11 @@ version: '2'
 
 services:
  neo4j:
-  image: tpires/neo4j
+  image: neo4j:3.0.1
   ports:
    - "0.0.0.0:7474:7474"
    - "0.0.0.0:7473:7473"
+   - "0.0.0.0:7687:7687"
    - "0.0.0.0:2222:22"
   environment:
    - NEO4J_AUTH=none

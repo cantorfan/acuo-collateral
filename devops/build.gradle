@@ -1,25 +1,27 @@
+apply plugin:'eclipse'
+
 def name = project(":webapp").name
 def imageName = "localhost:5000/${project.group}/${name}:${version}"
-
-task writeDockerfile() {
-  description = 'Generates a new Dockerfile for the current version.'  
-  def dockerfile = new File('build/Dockerfile')
-  dockerfile.write ""
-  dockerfile << "FROM java\n"
-  dockerfile << "MAINTAINER Hicham Medkouri \"info@anaxo.io\"\n"
-  dockerfile << "ADD /build/${name}-${version}.tar /\n"
-  dockerfile << "ENTRYPOINT [\"/${name}-${version}/bin/webapp\"]\n"
-  dockerfile << "EXPOSE 8080"  
-}
 
 task copyTar(type: Copy, dependsOn: ":webapp:distTar") {    
     from project(":webapp").collect { it.tasks.withType(Tar) }
     into "$buildDir"
 }
 
+task writeDockerfile(dependsOn: copyTar) {
+  description = 'Generates a new Dockerfile for the current version.'  
+  def dockerfile = new File("$buildDir/Dockerfile")
+  dockerfile.write ""
+  dockerfile << "FROM java\n"
+  dockerfile << "MAINTAINER Hicham Medkouri \"info@anaxo.io\"\n"
+  dockerfile << "ADD ${name}-${version}.tar /\n"
+  dockerfile << "ENTRYPOINT [\"/${name}-${version}/bin/webapp\"]\n"
+  dockerfile << "EXPOSE 8080"  
+}
+
 task dockerBuildImage(type:Exec, dependsOn: [writeDockerfile, copyTar]) {   
    group = 'docker' 
-   commandLine 'docker', 'build', '-t', imageName, '.'
+   commandLine 'docker', 'build', '-t', imageName, "$buildDir"
 }
  
 task dockerPushImage(type:Exec, dependsOn: dockerBuildImage) {   
