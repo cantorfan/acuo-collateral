@@ -1,6 +1,5 @@
 package com.acuo.collateral.web;
 
-import javax.ws.rs.Produces;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 
@@ -11,7 +10,6 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Provider
-@Produces("application/json")
 public class JacksonObjectMapperProvider implements ContextResolver<ObjectMapper> {
 	final ObjectMapper objectMapper;
 

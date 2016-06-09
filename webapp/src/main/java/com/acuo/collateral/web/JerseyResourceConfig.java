@@ -23,6 +23,7 @@ public class JerseyResourceConfig extends ResourceConfig {
 		// this.register(CorsResponseFilter.class);
 		this.register(JacksonFeature.class);
 		this.register(JacksonObjectMapperProvider.class);
+		this.register(Neo4jConnectionExceptionHandler.class);
 		EncodingFilter.enableFor(this, GZipEncoder.class);
 	}
 }

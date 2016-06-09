@@ -3,6 +3,7 @@ package com.acuo.collateral.modules;
 import com.acuo.collateral.resources.ClientResource;
 import com.acuo.collateral.resources.ExposureResource;
 import com.acuo.collateral.resources.ImportResource;
+import com.acuo.collateral.web.Neo4jConnectionExceptionHandler;
 import com.google.inject.AbstractModule;
 
 /**
@@ -15,5 +16,6 @@ public class ResourcesModule extends AbstractModule {
 		bind(ClientResource.class);
 		bind(ImportResource.class);
 		bind(ExposureResource.class);
+		bind(Neo4jConnectionExceptionHandler.class);
 	}
 }

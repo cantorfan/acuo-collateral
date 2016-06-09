@@ -105,6 +105,7 @@ dependencies {
                         
         "org.neo4j:neo4j-ogm-core:${versions.neo4jOgm}",
         "org.neo4j:neo4j-ogm-http-driver:${versions.neo4jOgm}",
+        "org.neo4j:neo4j-ogm-bolt-driver:${versions.neo4jOgm}",
         "org.neo4j:neo4j-ogm-embedded-driver:${versions.neo4jOgm}",
                 
         "com.google.inject:guice:${versions.guice}",
