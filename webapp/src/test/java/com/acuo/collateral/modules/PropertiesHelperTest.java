@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
-import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
-import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
+import com.acuo.common.util.GuiceJUnitRunner;
+import com.acuo.common.util.GuiceJUnitRunner.GuiceModules;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ConfigurationTestModule.class })

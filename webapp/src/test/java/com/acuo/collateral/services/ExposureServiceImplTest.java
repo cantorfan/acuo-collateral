@@ -24,8 +24,8 @@ import com.acuo.collateral.model.Exposure;
 import com.acuo.collateral.model.ProductType;
 import com.acuo.collateral.modules.Neo4jPersistTestModule;
 import com.acuo.collateral.modules.entities.ExposureServiceModule;
-import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
-import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
+import com.acuo.common.util.GuiceJUnitRunner;
+import com.acuo.common.util.GuiceJUnitRunner.GuiceModules;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ExposureServiceModule.class, Neo4jPersistTestModule.class })

@@ -27,8 +27,6 @@ import com.acuo.collateral.model.Portfolio;
 import com.acuo.collateral.modules.ConfigurationTestModule;
 import com.acuo.collateral.modules.ServicesModule;
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
-import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
-import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
 import com.acuo.collateral.services.ClearingHouseService;
 import com.acuo.collateral.services.ClientService;
 import com.acuo.collateral.services.CounterpartService;
@@ -36,6 +34,8 @@ import com.acuo.collateral.services.CustodianService;
 import com.acuo.collateral.services.ExposureService;
 import com.acuo.collateral.services.FundService;
 import com.acuo.collateral.services.PortfolioService;
+import com.acuo.common.util.GuiceJUnitRunner;
+import com.acuo.common.util.GuiceJUnitRunner.GuiceModules;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 

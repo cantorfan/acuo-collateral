@@ -19,8 +19,8 @@ import org.neo4j.ogm.session.Session;
 import com.acuo.collateral.model.Client;
 import com.acuo.collateral.modules.Neo4jPersistTestModule;
 import com.acuo.collateral.modules.entities.ClientServiceModule;
-import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner;
-import com.acuo.collateral.neo4j.utils.GuiceJUnitRunner.GuiceModules;
+import com.acuo.common.util.GuiceJUnitRunner;
+import com.acuo.common.util.GuiceJUnitRunner.GuiceModules;
 
 @RunWith(GuiceJUnitRunner.class)
 @GuiceModules({ ClientServiceModule.class, Neo4jPersistTestModule.class })

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.acuo.collateral.neo4j.utils;
+package com.acuo.common.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
