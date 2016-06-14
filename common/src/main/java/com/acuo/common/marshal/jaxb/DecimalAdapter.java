@@ -10,14 +10,14 @@ public class DecimalAdapter extends XmlAdapter<String, Double> {
 	public Double unmarshal(String value) throws Exception {
 		if (value == null)
 			return null;
-		return new BigDecimal(value).doubleValue();
+		return new BigDecimal(value).stripTrailingZeros().doubleValue();
 	}
 
 	@Override
 	public String marshal(Double value) throws Exception {
 		if (value == null)
 			return null;
-		return BigDecimal.valueOf(value).toPlainString();
+		return BigDecimal.valueOf(value).stripTrailingZeros().toPlainString();
 	}
 
 }

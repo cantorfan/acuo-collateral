@@ -12,11 +12,7 @@ public class MarshallingEventHandler implements ValidationEventHandler {
 
 	@Override
 	public boolean handleEvent(ValidationEvent event) {
-		LOG.warn("Error during XML conversion: {}", event);
-
-		if (LOG.isDebugEnabled()) {
-			LOG.debug("{}, {}, LinkedException :", event.getMessage(), event.getSeverity(), event.getLinkedException());
-		}
+		LOG.warn("{}", event);
 
 		if (event.getLinkedException() instanceof NumberFormatException)
 			return false;
