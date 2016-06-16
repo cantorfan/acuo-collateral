@@ -37,6 +37,7 @@ public interface CypherExecutor {
 	 */
 	Collection<ICypherResult> executeStatements(Collection<String> queries);
 
+	@SuppressWarnings("unchecked")
 	default String substituteQueryParameterValues(String parameterizedQuery, Map<String, Object> queryParameter) {
 
 		String transformedQuery = parameterizedQuery;

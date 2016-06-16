@@ -1,6 +1,8 @@
 package com.acuo.collateral.web;
 
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,8 +38,7 @@ public class JacksonTest {
 	@Test
 	public void testSerialisingMap() throws JsonProcessingException {
 		String json = objectMapper.writeValueAsString(data);
-
-		System.out.println(json);
+		assertThat(json, is(notNullValue()));
 	}
 
 	@Test
@@ -45,6 +46,7 @@ public class JacksonTest {
 		Counterpart counterpart = Counterpart.of("JPM");
 
 		String json = objectMapper.writeValueAsString(counterpart);
+		assertThat(json, is(notNullValue()));
 
 	}
 
@@ -53,8 +55,7 @@ public class JacksonTest {
 		String json = "\"JPM\"";
 
 		Counterpart counterpart = objectMapper.readValue(json, Counterpart.class);
-
-		assertNotNull(counterpart);
+		assertThat(counterpart, is(notNullValue()));
 	}
 
 }

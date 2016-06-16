@@ -78,7 +78,7 @@ public class RestCypherExecutor implements CypherExecutor {
 		Client client = ClientBuilder.newClient();
 		WebTarget resource = client.target(txUri);
 
-		Entity payload = Entity.entity("{\"statements\" : [ {\"statement\" : \"" + query + "\"} ]}",
+		Entity<String> payload = Entity.entity("{\"statements\" : [ {\"statement\" : \"" + query + "\"} ]}",
 				MediaType.APPLICATION_JSON);
 
 		Invocation.Builder builder = resource.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
@@ -114,7 +114,7 @@ public class RestCypherExecutor implements CypherExecutor {
 				for (int i = 0; i < columns.size(); i++) {
 					JsonNode value = row.get(i);
 					if (value.isTextual()) {
-						rowResults.put(columns.get(i).getValueAsText(), row.get(i).getValueAsText());
+						rowResults.put(columns.get(i).asText(), row.get(i).asText());
 					} else {
 						Map<String, Object> temp = mapper.readValue(value,
 								new org.codehaus.jackson.type.TypeReference<Map<String, Object>>() {

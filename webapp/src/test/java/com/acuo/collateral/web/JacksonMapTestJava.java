@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdKeyDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-@SuppressWarnings("hiding")
 public class JacksonMapTestJava {
 
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
@@ -83,6 +82,7 @@ public class JacksonMapTestJava {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	public static class PairKD extends StdKeyDeserializer {
 		PairKD() {
 			super(StdKeyDeserializer.TYPE_CLASS, Pair.class);
@@ -99,6 +99,7 @@ public class JacksonMapTestJava {
 		}
 	}
 
+	@SuppressWarnings("serial")
 	public static class PairKS extends StdSerializer<Pair> {
 		PairKS() {
 			super(Pair.class);

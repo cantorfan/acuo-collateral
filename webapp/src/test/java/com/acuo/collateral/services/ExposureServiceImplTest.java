@@ -1,6 +1,9 @@
 package com.acuo.collateral.services;
 
 import static com.acuo.common.TestHelper.matchesRegex;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
@@ -80,6 +83,7 @@ public class ExposureServiceImplTest {
 	public void testFindByClientIdAndGroupByCounterpart() {
 		String clientId = "client1";
 		Iterable<Exposure> results = exposureService.findByClientId(clientId);
+		assertThat(results, is(notNullValue()));
 	}
 
 }

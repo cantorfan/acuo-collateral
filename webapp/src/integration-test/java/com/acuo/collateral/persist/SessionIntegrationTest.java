@@ -27,7 +27,6 @@ public class SessionIntegrationTest {
 
 	private static TestServer server;
 	private DataImporter importer;
-	private CypherExecutor executor;
 
 	@Inject
 	@Named(PropertiesHelper.ACUO_DATA_DIR)
@@ -51,8 +50,6 @@ public class SessionIntegrationTest {
 	@Before
 	public void setup() {
 		importer = new Neo4jDataImporter(dataLoader, workingDirectory, workingDirectory, directoryTemplate);
-		executor = new EmbeddedCypherExecutor(server.getGraphDatabaseService());
-
 		importer.importFiles(DataImporter.ALL_FILES);
 	}
 
