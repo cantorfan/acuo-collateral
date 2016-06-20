@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -64,6 +65,7 @@ public class JaxbMarshallerTest {
 	}
 
 	@Test
+	@Ignore
 	public void testDoJsonUnmarshal() throws Exception {
 		SomeXml someXml = marshaller.doUnmarshal(json.getContent(), SomeXml.class);
 		assertNotNull(someXml);
