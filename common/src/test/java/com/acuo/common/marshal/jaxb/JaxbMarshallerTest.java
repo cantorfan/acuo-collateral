@@ -24,7 +24,10 @@ import com.google.inject.Provides;
 public class JaxbMarshallerTest {
 
 	@Rule
-	public ResourceFile res = new ResourceFile("/some.xml");
+	public ResourceFile xml = new ResourceFile("/some.xml");
+
+	@Rule
+	public ResourceFile json = new ResourceFile("/some.json");
 
 	@Inject
 	JaxbMarshaller marshaller;
@@ -56,20 +59,26 @@ public class JaxbMarshallerTest {
 
 	@Test
 	public void testDoUnmarshal() throws Exception {
-		SomeXml someXml = marshaller.doUnmarshal(res.getContent(), SomeXml.class);
+		SomeXml someXml = marshaller.doUnmarshal(xml.getContent(), SomeXml.class);
+		assertNotNull(someXml);
+	}
+
+	@Test
+	public void testDoJsonUnmarshal() throws Exception {
+		SomeXml someXml = marshaller.doUnmarshal(json.getContent(), SomeXml.class);
 		assertNotNull(someXml);
 	}
 
 	@Test
 	public void testXmlFilesAreEqual() throws Exception {
-		String xml = marshaller.doMarshal(someXml());
-		assertEquals(res.getContent(), xml);
+		String result = marshaller.doMarshal(someXml());
+		assertEquals(xml.getContent(), result);
 	}
 
 	@Test
 	public void testObjectsAreEqual() throws Exception {
-		SomeXml xml = marshaller.doUnmarshal(res.getContent(), SomeXml.class);
-		assertEquals(someXml(), xml);
+		SomeXml result = marshaller.doUnmarshal(xml.getContent(), SomeXml.class);
+		assertEquals(someXml(), result);
 	}
 
 	private SomeXml someXml() throws Exception {
