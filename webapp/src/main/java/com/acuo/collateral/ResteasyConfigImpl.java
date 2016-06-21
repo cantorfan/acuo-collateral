@@ -13,6 +13,7 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.acuo.common.app.ResteasyConfig;
 import com.acuo.common.http.server.HttpResourceHandlerConfig;
 import com.acuo.common.http.server.HttpServerConnectorConfig;
 import com.acuo.common.http.server.HttpServerWrapperConfig;

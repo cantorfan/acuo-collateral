@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.acuo.collateral.modules.JacksonModule;
 import com.acuo.collateral.resources.view.Counterpart;
 import com.acuo.collateral.resources.view.Exposure;
 import com.acuo.common.util.GuiceJUnitRunner;

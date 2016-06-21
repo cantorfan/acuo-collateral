@@ -1,4 +1,4 @@
-package com.acuo.collateral;
+package com.acuo.common.app;
 
 import com.acuo.common.http.server.HttpServerWrapperConfig;
 

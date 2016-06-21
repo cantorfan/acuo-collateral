@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules.configuration;
+package com.acuo.common.app;
 
 import java.util.HashMap;
 import java.util.Map;

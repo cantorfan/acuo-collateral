@@ -2,6 +2,7 @@ package com.acuo.collateral.modules.configuration;
 
 import javax.inject.Inject;
 
+import com.acuo.common.app.Configuration;
 import com.google.inject.AbstractModule;
 
 public class PropertiesModule extends AbstractModule {

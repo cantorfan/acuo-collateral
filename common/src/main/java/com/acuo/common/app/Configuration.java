@@ -1,4 +1,4 @@
-package com.acuo.collateral.modules.configuration;
+package com.acuo.common.app;
 
 public class Configuration {
 

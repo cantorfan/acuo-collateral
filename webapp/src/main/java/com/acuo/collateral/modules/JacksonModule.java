@@ -1,4 +1,4 @@
-package com.acuo.collateral.web;
+package com.acuo.collateral.modules;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

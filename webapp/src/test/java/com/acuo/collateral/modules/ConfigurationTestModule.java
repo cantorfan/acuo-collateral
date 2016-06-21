@@ -1,8 +1,8 @@
 package com.acuo.collateral.modules;
 
-import com.acuo.collateral.modules.configuration.AppId;
-import com.acuo.collateral.modules.configuration.Configuration;
 import com.acuo.collateral.modules.configuration.PropertiesModule;
+import com.acuo.common.app.AppId;
+import com.acuo.common.app.Configuration;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;

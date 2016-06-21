@@ -1,4 +1,4 @@
-package com.acuo.collateral.web;
+package com.acuo.collateral.modules;
 
 import com.acuo.common.type.TypedString;
 import com.fasterxml.jackson.databind.module.SimpleModule;

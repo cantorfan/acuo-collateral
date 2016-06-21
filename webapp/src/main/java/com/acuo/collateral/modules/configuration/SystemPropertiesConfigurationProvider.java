@@ -5,6 +5,10 @@ import static com.acuo.collateral.modules.configuration.PropertiesHelper.ACUO_CO
 
 import javax.inject.Provider;
 
+import com.acuo.common.app.AppId;
+import com.acuo.common.app.Configuration;
+import com.acuo.common.app.Environment;
+
 public class SystemPropertiesConfigurationProvider implements Provider<Configuration> {
 
 	@Override
