@@ -5,13 +5,13 @@ import org.neo4j.ogm.annotation.Transient;
 @Transient
 public interface DataLoader {
 
-	void purgeDatabase();
+    void purgeDatabase();
 
-	void createConstraints();
+    void createConstraints();
 
-	void loadData(String query);
+    void loadData(String query);
 
-	void loadDataFile(String fileName);
+    void loadDataFile(String fileName);
 
-	void loadAll();
+    void loadAll();
 }

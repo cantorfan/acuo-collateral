@@ -7,9 +7,9 @@ import com.google.inject.Singleton;
 
 public class FundServiceModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		bind(FundService.class).to(FundServiceImpl.class).in(Singleton.class);
-	}
+    @Override
+    protected void configure() {
+        bind(FundService.class).to(FundServiceImpl.class).in(Singleton.class);
+    }
 
 }

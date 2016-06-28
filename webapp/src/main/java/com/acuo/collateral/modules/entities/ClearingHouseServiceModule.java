@@ -7,9 +7,9 @@ import com.google.inject.Singleton;
 
 public class ClearingHouseServiceModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		bind(ClearingHouseService.class).to(ClearingHouseServiceImpl.class).in(Singleton.class);
-	}
+    @Override
+    protected void configure() {
+        bind(ClearingHouseService.class).to(ClearingHouseServiceImpl.class).in(Singleton.class);
+    }
 
 }

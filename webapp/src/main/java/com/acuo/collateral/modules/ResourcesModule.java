@@ -11,11 +11,11 @@ import com.google.inject.AbstractModule;
  */
 public class ResourcesModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		bind(ClientResource.class);
-		bind(ImportResource.class);
-		bind(ExposureResource.class);
-		bind(Neo4jConnectionExceptionHandler.class);
-	}
+    @Override
+    protected void configure() {
+        bind(ClientResource.class);
+        bind(ImportResource.class);
+        bind(ExposureResource.class);
+        bind(Neo4jConnectionExceptionHandler.class);
+    }
 }

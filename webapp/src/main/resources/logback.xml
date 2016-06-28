@@ -15,8 +15,20 @@
 			</Pattern>
 		</layout>
 	</appender>
+
+	<appender name="METRICS" class="ch.qos.logback.core.FileAppender">
+		<file>metrics.log</file>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
 	
 	<logger name="com.acuo" level="debug"/>
+
+	<logger name="com.acuo.metrics" level="DEBUG" additivity="false">
+		<appender-ref ref="METRICS"/>
+	</logger>
 
 	<root level="error">
 		<appender-ref ref="STDOUT" />

@@ -7,9 +7,9 @@ import com.google.inject.Singleton;
 
 public class CounterpartServiceModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		bind(CounterpartService.class).to(CounterpartServiceImpl.class).in(Singleton.class);
-	}
+    @Override
+    protected void configure() {
+        bind(CounterpartService.class).to(CounterpartServiceImpl.class).in(Singleton.class);
+    }
 
 }

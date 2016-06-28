@@ -7,9 +7,9 @@ import com.google.inject.Singleton;
 
 public class ImportServiceModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		bind(ImportService.class).to(Neo4jImportService.class).in(Singleton.class);
-	}
+    @Override
+    protected void configure() {
+        bind(ImportService.class).to(Neo4jImportService.class).in(Singleton.class);
+    }
 
 }

@@ -7,9 +7,9 @@ import com.google.inject.Singleton;
 
 public class ClientServiceModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		bind(ClientService.class).to(ClientServiceImpl.class).in(Singleton.class);
-	}
+    @Override
+    protected void configure() {
+        bind(ClientService.class).to(ClientServiceImpl.class).in(Singleton.class);
+    }
 
 }

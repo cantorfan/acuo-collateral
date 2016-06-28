@@ -7,9 +7,9 @@ import com.google.inject.Singleton;
 
 public class ExposureServiceModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		bind(ExposureService.class).to(ExposureServiceImpl.class).in(Singleton.class);
-	}
+    @Override
+    protected void configure() {
+        bind(ExposureService.class).to(ExposureServiceImpl.class).in(Singleton.class);
+    }
 
 }

@@ -1,11 +1,6 @@
 package com.acuo.collateral.resources.view;
 
-import static com.acuo.collateral.model.ProductType.BILTERAL;
-import static com.acuo.collateral.model.ProductType.CDS;
-import static com.acuo.collateral.model.ProductType.CDX;
-import static com.acuo.collateral.model.ProductType.FUTURES;
-import static com.acuo.collateral.model.ProductType.IRS;
-import static com.acuo.collateral.model.ProductType.NDF;
+import com.acuo.collateral.model.ProductType;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,22 +9,22 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.acuo.collateral.model.ProductType;
+import static com.acuo.collateral.model.ProductType.*;
 
 public enum ProductSet {
 
-	ETD(FUTURES), CLEARED(CDS, CDX, IRS, NDF), BILATERAL(BILTERAL), UNKNOWN;
+    ETD(FUTURES), CLEARED(CDS, CDX, IRS, NDF), BILATERAL(BILTERAL), UNKNOWN;
 
-	private final Set<ProductType> types = new HashSet<>();
+    private final Set<ProductType> types = new HashSet<>();
 
-	private ProductSet(ProductType... productTypes) {
-		types.addAll(Arrays.stream(productTypes).collect(Collectors.toSet()));
-	}
+    private ProductSet(ProductType... productTypes) {
+        types.addAll(Arrays.stream(productTypes).collect(Collectors.toSet()));
+    }
 
-	private final Predicate<ProductType> inRange = i -> types.contains(i);
+    private final Predicate<ProductType> inRange = i -> types.contains(i);
 
-	public static final Function<Exposure, ProductSet> resolveProductCategory = m -> ETD.inRange
-			.test(m.getProductType()) ? ETD
-					: CLEARED.inRange.test(m.getProductType()) ? CLEARED
-							: BILATERAL.inRange.test(m.getProductType()) ? BILATERAL : UNKNOWN;
+    public static final Function<Exposure, ProductSet> resolveProductCategory = m -> ETD.inRange
+            .test(m.getProductType()) ? ETD
+            : CLEARED.inRange.test(m.getProductType()) ? CLEARED
+            : BILATERAL.inRange.test(m.getProductType()) ? BILATERAL : UNKNOWN;
 }

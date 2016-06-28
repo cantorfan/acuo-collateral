@@ -8,11 +8,11 @@ import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 
 public class JerseyGuiceServletContextListener extends GuiceServletContextListener {
-	static Injector injector;
+    static Injector injector;
 
-	@Override
-	protected Injector getInjector() {
-		injector = Guice.createInjector(new ConfigurationModule(), new ServicesModule(), new ResourcesModule());
-		return injector;
-	}
+    @Override
+    protected Injector getInjector() {
+        injector = Guice.createInjector(new ConfigurationModule(), new ServicesModule(), new ResourcesModule());
+        return injector;
+    }
 }
