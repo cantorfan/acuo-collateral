@@ -1,3 +1,13 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath 'com.bmuschko:gradle-docker-plugin:3.0.0'
+	}
+}
+
 allprojects {
 	repositories {
 		jcenter()
@@ -25,4 +35,8 @@ configure (subprojects) {
 configurations.all {
     // check for updates every build
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
 }

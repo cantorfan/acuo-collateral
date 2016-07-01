@@ -1,25 +1,31 @@
-apply plugin:'eclipse'
+apply plugin:'base'
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 def name = project(":webapp").name
-def imageName = "localhost:5000/${project.group}/${name}:${version}"
+def imageName = "${name}:${version}"
+def imagePort = 8080
 
-task copyTar(type: Copy, dependsOn: ":webapp:distTar") {    
+build.dependsOn("createDockerfile")
+
+task copyTar(type: Copy, dependsOn: ":webapp:distTar") {
     from project(":webapp").collect { it.tasks.withType(Tar) }
     into "$buildDir"
 }
 
-task writeDockerfile(dependsOn: copyTar) {
-  description = 'Generates a new Dockerfile for the current version.'  
-  def dockerfile = new File("$buildDir/Dockerfile")
-  dockerfile.write ""
-  dockerfile << "FROM java\n"
-  dockerfile << "MAINTAINER Hicham Medkouri \"info@anaxo.io\"\n"
-  dockerfile << "ADD ${name}-${version}.tar /\n"
-  dockerfile << "ENTRYPOINT [\"/${name}-${version}/bin/webapp\"]\n"
-  dockerfile << "EXPOSE 8080"  
+task createDockerfile(type: Dockerfile, dependsOn: copyTar) {
+    destFile = project.file("$buildDir/Dockerfile")
+    from 'java'
+    maintainer 'Hicham Medkouri "info@anaxo.io"'
+    addFile "${name}-${version}.tar", '/'
+    entryPoint "/${name}-${version}/bin/${name}"
+    exposePort imagePort
+    label version: "${version}"
 }
 
-task dockerBuildImage(type:Exec, dependsOn: [writeDockerfile, copyTar]) {   
+task dockerBuildImage(type:Exec, dependsOn: createDockerfile) {
    group = 'docker' 
    commandLine 'docker', 'build', '-t', imageName, "$buildDir"
 }
@@ -28,24 +34,3 @@ task dockerPushImage(type:Exec, dependsOn: dockerBuildImage) {
    group = 'docker' 
    commandLine 'docker', 'push', imageName
 }
-
-/*
-dependencies {
- classpath 'com.bmuschko:gradle-docker-plugin:2.6.8'
-}
-
-apply plugin: 'com.bmuschko.docker-java-application'
-
-docker {
-    
-    javaApplication {
-        maintainer = 'Hicham Medkouri "info@anaxo.io"'
-        port = 8080
-        tag = "acuo/webapp:latest"
-    }
-    
-    registryCredentials {
-        url = "http://localhost"        
-    }
-}
-*/
