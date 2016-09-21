@@ -1,6 +1,7 @@
 apply from: "$rootDir/gradle/java-plugins.gradle"
 apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/integration-test.gradle"
+apply from: "$rootDir/gradle/deployment.gradle"
 
 ext.versions += [
         common: '1.0.0-SNAPSHOT',
@@ -11,6 +12,11 @@ ext.versions += [
         jackson  : '2.7.4',
         resteasy : '3.0.16.Final'
 ]
+
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
 
 apply plugin: 'application'
 

@@ -12,17 +12,20 @@ allprojects {
 	repositories {
 		jcenter()
 		mavenLocal()
-		mavenCentral()		
+		mavenCentral()
+		maven {
+			url "${nexusUrl}/repository/maven-public/"
+		}
     }	    
 	group = 'com.acuo.collateral'
-	version = '1.0.0-SNAPSHOT'	
+	version = '0.0.1-SNAPSHOT'
 }
 
 def loadConfiguration() {
 	def profile = hasProperty('profile') ? profile : 'dev'
 	ext.profile = profile
 	def configFile = file('config.groovy')
-	def config = new ConfigSlurper(profile).parse(configFile.toURL())
+	def config = new ConfigSlurper(profile).parse(configFile.toURI().toURL())
 	ext.config = config
 }
 
@@ -30,11 +33,6 @@ configure (subprojects) {
 	loadConfiguration()
 	profile = profile //inject property into sub-project
 	config = config     
-}
-
-configurations.all {
-    // check for updates every build
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 task wrapper(type: Wrapper) {
