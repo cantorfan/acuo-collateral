@@ -1,16 +1,17 @@
 package com.acuo.collateral.persist;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHeaders;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.glassfish.jersey.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.*;
 
@@ -74,7 +75,7 @@ public class RestCypherExecutor implements CypherExecutor {
 
         Invocation.Builder builder = resource.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
         builder.header(HttpHeaders.AUTHORIZATION, encodedPassword);
-        ClientResponse response = builder.post(payload, ClientResponse.class);
+        Response response = builder.post(payload);
         String jsonReturn = response.readEntity(String.class);
         log.info(String.format(
                 "POST [%s] to [%s], status code [%d], returned data: " + System.getProperty("line.separator") + "%s",
@@ -88,8 +89,8 @@ public class RestCypherExecutor implements CypherExecutor {
             JsonNode resultsNode = root.get("results");
             JsonNode errorNode = root.get("errors");
             if (errorNode.size() != 0) {
-                String code = errorNode.get(0).get("code").getTextValue();
-                String message = errorNode.get(0).get("message").getTextValue();
+                String code = errorNode.get(0).get("code").asText();
+                String message = errorNode.get(0).get("message").asText();
                 throw new PersistenceException(
                         String.format("Error executing statement. Code %s Message %s", code, message));
             }
@@ -107,9 +108,9 @@ public class RestCypherExecutor implements CypherExecutor {
                     if (value.isTextual()) {
                         rowResults.put(columns.get(i).asText(), row.get(i).asText());
                     } else {
-                        Map<String, Object> temp = mapper.readValue(value,
-                                new org.codehaus.jackson.type.TypeReference<Map<String, Object>>() {
-                                });
+                        TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String, Object>>() {
+                        };
+                        Map<String, Object> temp = mapper.readValue(value.asText(), typeReference);
                         rowResults.putAll(temp);
                     }
                 }

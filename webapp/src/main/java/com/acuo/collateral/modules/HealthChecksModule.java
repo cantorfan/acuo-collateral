@@ -5,15 +5,15 @@ import com.acuo.common.metrics.DiskSpaceHealthCheck;
 import com.acuo.common.metrics.PingHealthCheck;
 import com.codahale.metrics.MetricSet;
 import com.codahale.metrics.health.HealthCheck;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.multibindings.Multibinder;
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.client.ClientProperties;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import java.util.concurrent.TimeUnit;
 
 public class HealthChecksModule extends AbstractModule {
     @Override
@@ -29,13 +29,18 @@ public class HealthChecksModule extends AbstractModule {
     }
 
     @Provides
-    Client getClient() {
-        ClientConfig config = new ClientConfig();
-        config.register(new JacksonFeature());
-        config.property(ClientProperties.ASYNC_THREADPOOL_SIZE, 10);
-        config.property(ClientProperties.CONNECT_TIMEOUT, 10000);
-        config.property(ClientProperties.READ_TIMEOUT, 10000);
-        Client client = ClientBuilder.newClient(config);
-        return client;
+    private Client jaxrsClient() {
+        /*
+        ClientBuilder.newBuilder()
+                .property("connection.timeout", 10000)
+                .register(JacksonJsonProvider.class)
+                .newClient()
+         */
+        return new ResteasyClientBuilder()
+                .establishConnectionTimeout(2, TimeUnit.SECONDS)
+                .connectionPoolSize(10)
+                .socketTimeout(10, TimeUnit.SECONDS)
+                .register(JacksonJsonProvider.class)
+                .build();
     }
 }

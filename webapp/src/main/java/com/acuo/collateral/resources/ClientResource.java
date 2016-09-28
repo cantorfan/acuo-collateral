@@ -41,7 +41,6 @@ public class ClientResource {
 
     @GET
     @Path("{id}")
-    @ResourceDetailView
     @Timed
     public Client findById(@PathParam("id") Long id) {
         LOG.trace("Retrieving Class with ID: [{}]", id);
@@ -81,7 +80,6 @@ public class ClientResource {
         // @ResourceDetailView
         // public Subject subject;
 
-        @ResourceDetailView
         public Set<FundResource.Fund> funds;
 
     }

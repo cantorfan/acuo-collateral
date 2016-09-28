@@ -41,7 +41,6 @@ public class CounterpartResource {
 
     @GET
     @Path("{id}")
-    @ResourceDetailView
     @Timed
     public Counterpart findById(@PathParam("id") Long id) {
         LOG.trace("Retrieving Class with ID: [{}]", id);

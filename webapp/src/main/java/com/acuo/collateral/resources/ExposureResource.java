@@ -46,7 +46,6 @@ public class ExposureResource {
 
     @GET
     @Path("{id}")
-    @ResourceDetailView
     @Timed
     public Exposure findById(@PathParam("id") Long id) {
         LOG.trace("Retrieving Class with ID: [{}]", id);
@@ -62,7 +61,6 @@ public class ExposureResource {
 
     @GET
     @Path("/ByProductSetAndCount/{clientId}")
-    @ResourceDetailView
     @Timed
     public Map<ProductSet, Integer> aggregateByProductSetAndCount(@PathParam("clientId") String clientId) {
         Exposures report = retrieveExposures(clientId);
@@ -72,7 +70,6 @@ public class ExposureResource {
 
     @GET
     @Path("/ByCounterPartAndProductType/{clientId}")
-    @ResourceDetailView
     @Timed
     public Map<Counterpart, Map<ProductType, Long>> aggregateByCounterPartAndProductType(
             @PathParam("clientId") String clientId) {
@@ -84,7 +81,6 @@ public class ExposureResource {
 
     @GET
     @Path("/ByCounterPartAndProductSet/{clientId}")
-    @ResourceDetailView
     @Timed
     public Map<Counterpart, Map<ProductSet, Long>> aggregateByCounterPartAndProductSet(
             @PathParam("clientId") String clientId) {

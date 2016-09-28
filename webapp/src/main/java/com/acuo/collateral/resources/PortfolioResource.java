@@ -43,7 +43,6 @@ public class PortfolioResource {
 
     @GET
     @Path("{id}")
-    @ResourceDetailView
     @Timed
     public Portfolio findById(@PathParam("id") Long id) {
         LOG.trace("Retrieving Class with ID: [{}]", id);
@@ -59,7 +58,6 @@ public class PortfolioResource {
 
     @GET
     @Path("client={clientId}")
-    @ResourceDetailView
     @Timed
     public Iterable<Portfolio> findByClientId(@PathParam("clientId") Long clientId) {
         LOG.trace("Retrieving Class with client ID: [{}]", clientId);
@@ -103,10 +101,8 @@ public class PortfolioResource {
 
         public String currency;
 
-        @ResourceDetailView
         public Set<Exposure> exposures;
 
-        @ResourceDetailView
         public Set<AssetResource.Asset> assets;
 
     }

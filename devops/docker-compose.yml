@@ -2,27 +2,32 @@ version: '2'
 
 services:
  neo4j:
-  image: neo4j:3.0.1
+  image: neo4j:3.0.6
   ports:
-   - "0.0.0.0:7474:7474"
-   - "0.0.0.0:7473:7473"
-   - "0.0.0.0:7687:7687"
-   - "0.0.0.0:2222:22"
+   - "7474:7474"
+   - "7473:7473"
+   - "7687:7687"
+   - "2222:22"
+  expose:
+   - "7687"
+   - "7474"
   environment:
    - NEO4J_AUTH=none
-  networks:
-   - acuo
+  #networks:
+  # - acuo
   #volumes:
   #	- /data:/var/lib/neo4j/data
- app:
+ collateral:
   build: ./build
   #image: localhost:5000/com.acuo.collateral/webapp:1.0
   image: webapp
   ports:
-   - "0.0.0.0:8080:8080"  
-  networks:
-   - acuo
+   - "8080:8080"
+  links:
+    - neo4j
+  #networks:
+  # - acuo
   #volumes:
   # - /data:/data
-networks:
- acuo:
+#networks:
+# acuo:

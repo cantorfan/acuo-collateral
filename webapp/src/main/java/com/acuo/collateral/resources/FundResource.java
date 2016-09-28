@@ -39,7 +39,6 @@ public class FundResource {
 
     @GET
     @Path("{id}")
-    @ResourceDetailView
     @Timed
     public Fund getByType(@PathParam("id") Long id) {
         LOG.trace("Retrieving fund with ID: [{}]", id);
