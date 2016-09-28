@@ -10,7 +10,7 @@ def imagePort = 8080
 
 build.dependsOn("createDockerfile")
 
-task copyTar(type: Copy, dependsOn: ":webapp:distTar") {
+task copyTar(type: Copy, dependsOn: ":webapp:build") {
     from project(":webapp").collect { it.tasks.withType(Tar) }
     into "$buildDir"
 }
