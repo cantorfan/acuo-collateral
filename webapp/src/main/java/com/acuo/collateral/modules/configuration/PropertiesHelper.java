@@ -4,11 +4,13 @@ import com.acuo.common.app.AppId;
 import com.acuo.common.app.Configuration;
 import com.acuo.common.app.Environment;
 import com.acuo.common.util.ArgChecker;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Slf4j
 public class PropertiesHelper {
 
     private static final String DEFAULTS_PROPERTIES_TEMPLATE = "/%s.properties";
@@ -68,6 +70,7 @@ public class PropertiesHelper {
             if (stream != null)
                 properties.load(stream);
         } catch (IOException e) {
+            log.error(e.getMessage(), e);
         }
         return properties;
     }

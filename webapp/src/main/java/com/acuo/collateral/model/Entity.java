@@ -1,7 +1,10 @@
 package com.acuo.collateral.model;
 
+import org.neo4j.ogm.annotation.GraphId;
+
 public abstract class Entity {
 
+    @GraphId
     private Long id;
 
     public final Long getId() {

@@ -1,6 +1,7 @@
 package com.acuo.collateral.services;
 
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
+import com.acuo.collateral.modules.persistence.Neo4jPersistModule;
 import com.google.inject.Singleton;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.UnitOfWork;
@@ -20,21 +21,24 @@ public class Neo4jPersistService implements Provider<Session>, UnitOfWork, Persi
 
     private static final Logger LOG = LoggerFactory.getLogger(Neo4jPersistService.class);
 
-    private ThreadLocal<Session> sessions;
-    private SessionFactory sessionFactory;
+    private final ThreadLocal<Session> sessions = new ThreadLocal<>();
+
+    private final String[] persistencePackages;
+    private final Configuration configuration;
+
+    private volatile SessionFactory sessionFactory;
 
     @Inject
     Neo4jPersistService(@Named(PropertiesHelper.NEO4J_OGM_DRIVER) String driver,
                         @Named(PropertiesHelper.NEO4J_OGM_URL) String url,
                         @Named(PropertiesHelper.NEO4J_OGM_USERNAME) String userName,
                         @Named(PropertiesHelper.NEO4J_OGM_PASSWORD) String password,
-                        @Named(PropertiesHelper.NEO4J_OGM_PACKAGES) String packages) {
+                        Neo4jPersistModule.Packages packages) {
         LOG.info("Creating a Neo4j persistence service using driver [{}] and url[{}]", driver, url);
-        sessions = new ThreadLocal<>();
-        Configuration configuration = new Configuration();
-        configuration.driverConfiguration().setDriverClassName(driver).setURI(url)
+        this.persistencePackages = packages.value();
+        this.configuration = new Configuration();
+        this.configuration.driverConfiguration().setDriverClassName(driver).setURI(url)
                 .setCredentials(new UsernamePasswordCredentials(userName, password));
-        this.sessionFactory = new SessionFactory(configuration, packages);
     }
 
     @Override
@@ -59,12 +63,17 @@ public class Neo4jPersistService implements Provider<Session>, UnitOfWork, Persi
     }
 
     @Override
-    public void start() {
-        // Do nothing...
+    public synchronized void start() {
+        if (sessionFactory != null)
+        {
+            throw new IllegalStateException("Persistence service was already initialized.");
+        }
+
+        this.sessionFactory = new SessionFactory(configuration, persistencePackages);
     }
 
     @Override
-    public void stop() {
+    public synchronized void stop() {
         // Do nothing...
     }
 
@@ -88,7 +97,6 @@ public class Neo4jPersistService implements Provider<Session>, UnitOfWork, Persi
             return;
         }
 
-        // session.close();
         sessions.remove();
     }
 }

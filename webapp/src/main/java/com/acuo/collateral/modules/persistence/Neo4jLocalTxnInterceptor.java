@@ -3,6 +3,7 @@ package com.acuo.collateral.modules.persistence;
 import com.acuo.collateral.services.Neo4jPersistService;
 import com.google.inject.persist.Transactional;
 import com.google.inject.persist.UnitOfWork;
+import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.neo4j.ogm.session.Session;
@@ -11,13 +12,14 @@ import org.neo4j.ogm.transaction.Transaction;
 import javax.inject.Inject;
 import java.lang.reflect.Method;
 
+@Slf4j
 class Neo4jLocalTxnInterceptor implements MethodInterceptor {
 
     @Inject
-    private Neo4jPersistService sessionProvider;
+    Neo4jPersistService sessionProvider;
 
     @Inject
-    private UnitOfWork unitOfWork;
+    UnitOfWork unitOfWork;
 
     @Transactional
     private static class Internal {
@@ -77,6 +79,9 @@ class Neo4jLocalTxnInterceptor implements MethodInterceptor {
         // interferes with the advised method's throwing semantics)
         try {
             txn.commit();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw e;
         } finally {
             // close the session if necessary
             if (null != workStarted.get()) {

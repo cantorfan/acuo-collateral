@@ -9,13 +9,13 @@ apply from: "$rootDir/gradle/projects/deployment.gradle"
 apply from: "$rootDir/gradle/projects/sonarqube.gradle"
 
 ext.versions += [
-        common: '0.0.1-SNAPSHOT',
-        neo4j    : '3.0.6',
-        neo4jOgm : '2.0.5',
-        neo4jBolt: '1.0.5',
-        guice    : '4.0',
-        jackson  : '2.8.3',
-        resteasy : '3.0.19.Final'
+    common: '0.0.1-SNAPSHOT',
+    neo4j    : '3.0.6',
+    neo4jOgm : '2.0.5',
+    neo4jBolt: '1.0.5',
+    guice    : '4.0',
+    jackson  : '2.8.3',
+    resteasy : '3.0.19.Final'
 ]
 
 apply plugin: 'application'
