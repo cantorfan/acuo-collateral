@@ -1,30 +1,20 @@
 package com.acuo.collateral.modules.persistence;
 
 import com.acuo.collateral.modules.ConfigurationTestModule;
-import com.acuo.collateral.services.Neo4jPersistService;
+import com.acuo.collateral.persist.Neo4jPersistService;
 import com.google.common.base.Throwables;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Provider;
-import com.google.inject.persist.PersistModule;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.UnitOfWork;
-import org.aopalliance.intercept.MethodInterceptor;
 import org.junit.After;
 import org.junit.Before;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.neo4j.ogm.session.Session;
-import org.neo4j.ogm.transaction.Transaction;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.when;
 
 public abstract class AbstractPersistTest {
 

@@ -6,6 +6,7 @@ import com.google.inject.persist.Transactional;
 import org.neo4j.ogm.session.Session;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 public abstract class GenericService<T> implements Service<T> {
 
@@ -13,23 +14,24 @@ public abstract class GenericService<T> implements Service<T> {
     public static final int DEPTH_ENTITY = 1;
 
     @Inject
-    protected Session session;
+    protected Provider<Session> sessionProvider;
 
     @Transactional
     @Override
     public Iterable<T> findAll() {
-        return session.loadAll(getEntityType(), DEPTH_LIST);
+        return sessionProvider.get().loadAll(getEntityType(), DEPTH_LIST);
     }
 
     @Transactional
     @Override
     public T find(Long id) {
-        return session.load(getEntityType(), id, DEPTH_ENTITY);
+        return sessionProvider.get().load(getEntityType(), id, DEPTH_ENTITY);
     }
 
     @Transactional
     @Override
     public void delete(Long id) {
+        Session session = sessionProvider.get();
         session.delete(session.load(getEntityType(), id));
     }
 
@@ -37,7 +39,7 @@ public abstract class GenericService<T> implements Service<T> {
     @Override
     public T createOrUpdate(T entity) {
         ArgChecker.notNull(entity, "entity");
-        session.save(entity, DEPTH_ENTITY);
+        sessionProvider.get().save(entity, DEPTH_ENTITY);
         return find(((Entity) entity).getId());
     }
 

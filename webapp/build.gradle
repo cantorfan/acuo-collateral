@@ -50,6 +50,10 @@ task printProperties << {
     println versions.jackson
 }
 
+configurations {
+    all*.exclude group: 'javax.ws.rs' , module: 'jsr311-api'
+}
+
 dependencies {
     compile(
             "com.acuo.collateral:common:${versions.common}",
@@ -83,7 +87,7 @@ dependencies {
     testCompile(
             "com.acuo.collateral:common:${versions.common}:tests",
             "org.neo4j.test:neo4j-harness:${versions.neo4j}",
-            "org.neo4j:neo4j-ogm-test:2.0.2",
+            "org.neo4j:neo4j-ogm-test:${versions.neo4jOgm}",
             "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.22.2",
             "com.jayway.jsonpath:json-path-assert:2.2.0"
     )

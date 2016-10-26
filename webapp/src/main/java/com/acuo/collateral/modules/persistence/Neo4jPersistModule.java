@@ -1,10 +1,12 @@
 package com.acuo.collateral.modules.persistence;
 
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
-import com.acuo.collateral.services.Neo4jPersistService;
+import com.acuo.collateral.persist.Neo4jPersistService;
+import com.google.common.util.concurrent.Service;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.matcher.AbstractMatcher;
+import com.google.inject.multibindings.Multibinder;
 import com.google.inject.persist.PersistModule;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.Transactional;
@@ -49,6 +51,9 @@ public class Neo4jPersistModule extends PersistModule {
 
         transactionInterceptor = new Neo4jLocalTxnInterceptor();
         requestInjection(transactionInterceptor);
+
+        Multibinder<Service> services = Multibinder.newSetBinder(binder(), Service.class);
+        services.addBinding().to(Neo4jPersistService.class);
     }
 
     @Override

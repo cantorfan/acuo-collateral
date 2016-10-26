@@ -1,6 +1,6 @@
 package com.acuo.collateral.modules.persistence;
 
-import com.acuo.collateral.services.Neo4jPersistService;
+import com.acuo.collateral.persist.Neo4jPersistService;
 import com.google.inject.persist.Transactional;
 import com.google.inject.persist.UnitOfWork;
 import lombok.extern.slf4j.Slf4j;

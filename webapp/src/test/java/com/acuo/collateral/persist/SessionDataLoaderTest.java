@@ -5,7 +5,9 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.google.inject.Provider;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,6 +22,9 @@ public class SessionDataLoaderTest {
 	public ExpectedException expectedException = ExpectedException.none();
 
 	@Mock
+	Provider<Session> sessionProvider;
+
+	@Mock
 	Session session;
 
 	DataLoader loader;
@@ -28,7 +33,9 @@ public class SessionDataLoaderTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 
-		loader = new SessionDataLoader(session, "src/test/resources");
+		when(sessionProvider.get()).thenReturn(session);
+
+		loader = new SessionDataLoader(sessionProvider, "src/test/resources");
 	}
 
 	@SuppressWarnings("unchecked")

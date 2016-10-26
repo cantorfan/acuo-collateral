@@ -1,7 +1,8 @@
-package com.acuo.collateral.services;
+package com.acuo.collateral.persist;
 
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
 import com.acuo.collateral.modules.persistence.Neo4jPersistModule;
+import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.inject.Singleton;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.UnitOfWork;
@@ -17,7 +18,7 @@ import javax.inject.Named;
 import javax.inject.Provider;
 
 @Singleton
-public class Neo4jPersistService implements Provider<Session>, UnitOfWork, PersistService {
+public class Neo4jPersistService extends AbstractIdleService implements Provider<Session>, UnitOfWork, PersistService {
 
     private static final Logger LOG = LoggerFactory.getLogger(Neo4jPersistService.class);
 
@@ -98,5 +99,15 @@ public class Neo4jPersistService implements Provider<Session>, UnitOfWork, Persi
         }
 
         sessions.remove();
+    }
+
+    @Override
+    protected void startUp() {
+        start();
+    }
+
+    @Override
+    protected void shutDown() {
+        stop();
     }
 }

@@ -12,7 +12,6 @@ import com.google.inject.multibindings.Multibinder;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import java.util.concurrent.TimeUnit;
 
 public class HealthChecksModule extends AbstractModule {
@@ -30,12 +29,6 @@ public class HealthChecksModule extends AbstractModule {
 
     @Provides
     private Client jaxrsClient() {
-        /*
-        ClientBuilder.newBuilder()
-                .property("connection.timeout", 10000)
-                .register(JacksonJsonProvider.class)
-                .newClient()
-         */
         return new ResteasyClientBuilder()
                 .establishConnectionTimeout(2, TimeUnit.SECONDS)
                 .connectionPoolSize(10)

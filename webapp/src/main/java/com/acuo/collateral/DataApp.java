@@ -7,6 +7,7 @@ import com.acuo.collateral.modules.ServicesModule;
 import com.acuo.collateral.modules.configuration.ConfigurationModule;
 import com.acuo.common.app.ResteasyConfig;
 import com.acuo.common.app.ResteasyMain;
+import com.google.common.util.concurrent.Service;
 import com.google.inject.Module;
 
 import java.util.Arrays;
@@ -16,7 +17,8 @@ import java.util.Collections;
 public class DataApp extends ResteasyMain {
 
     public static void main(String[] args) throws Exception {
-        new DataApp();
+        Service service = new DataApp();
+        service.startAsync();
     }
 
     @Override

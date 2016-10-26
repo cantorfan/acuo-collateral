@@ -13,7 +13,7 @@ public class PortfolioServiceImpl extends GenericService<Portfolio> implements P
 
     @Override
     public Iterable<Portfolio> findByClientId(Long id) {
-        Iterable<Portfolio> portfolios = session.query(Portfolio.class,
+        Iterable<Portfolio> portfolios = sessionProvider.get().query(Portfolio.class,
                 "MATCH (client:Client) -[*]- (p:Portfolio) WHERE ID(client)={param} WITH p MATCH a=(p)-[*0..1]-(b) RETURN a",
                 Collections.<String, Object>singletonMap("param", id));
         return portfolios;

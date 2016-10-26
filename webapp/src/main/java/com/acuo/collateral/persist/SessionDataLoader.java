@@ -1,6 +1,7 @@
 package com.acuo.collateral.persist;
 
 import com.acuo.collateral.modules.configuration.PropertiesHelper;
+import com.google.inject.Provider;
 import com.google.inject.persist.Transactional;
 import org.apache.commons.lang3.StringUtils;
 import org.neo4j.ogm.session.Session;
@@ -16,19 +17,19 @@ public class SessionDataLoader implements DataLoader {
     public static final String DELETE_ALL_CQL = "deleteAll.cql";
     public static final String CONSTRAINTS_CQL = "constraints.cql";
 
-    private final Session session;
+    private final Provider<Session> sessionProvider;
     private final CypherFileSpliter spliter;
 
     @Inject
-    public SessionDataLoader(Session session, @Named(PropertiesHelper.ACUO_DATA_DIR) String dataDirectory) {
-        this.session = session;
+    public SessionDataLoader(Provider<Session> sessionProvider, @Named(PropertiesHelper.ACUO_DATA_DIR) String dataDirectory) {
+        this.sessionProvider = sessionProvider;
         this.spliter = CypherFileSpliter.of(dataDirectory);
     }
 
     @Transactional
     @Override
     public void purgeDatabase() {
-        session.purgeDatabase();
+        sessionProvider.get().purgeDatabase();
     }
 
     @Override
@@ -54,6 +55,6 @@ public class SessionDataLoader implements DataLoader {
     public void loadData(String query) {
         if (StringUtils.isEmpty(query))
             return;
-        session.query(query, Collections.emptyMap());
+        sessionProvider.get().query(query, Collections.emptyMap());
     }
 }

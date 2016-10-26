@@ -17,14 +17,14 @@ allprojects {
         testFixturesCompile.extendsFrom testCompile
     }
 
-    plugins.withType(org.gradle.plugins.ide.idea.IdeaPlugin) {
+    /*plugins.withType(org.gradle.plugins.ide.idea.IdeaPlugin) {
         idea {
             module {
                 scopes.PROVIDED.plus.add(configurations.testFixturesCompile)
                 scopes.PROVIDED.plus.add(configurations.testFixturesRuntime)
             }
         }
-    }
+    }*/
 
     artifacts {
         archives testJar
