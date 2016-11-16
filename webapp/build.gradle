@@ -9,13 +9,14 @@ apply from: "$rootDir/gradle/projects/deployment.gradle"
 apply from: "$rootDir/gradle/projects/sonarqube.gradle"
 
 ext.versions += [
-    common: '0.0.1-SNAPSHOT',
+    common   : '0.2.1',
     neo4j    : '3.0.6',
     neo4jOgm : '2.0.5',
     neo4jBolt: '1.0.5',
     guice    : '4.0',
     jackson  : '2.8.3',
-    resteasy : '3.0.19.Final'
+    resteasy : '3.0.19.Final',
+    metrics : '3.1.2'
 ]
 
 apply plugin: 'application'
@@ -78,6 +79,11 @@ dependencies {
             "org.jboss.resteasy:resteasy-jaxrs:${versions.resteasy}",
             "org.jboss.resteasy:resteasy-guice:${versions.resteasy}",
             "org.jboss.resteasy:resteasy-jackson2-provider:${versions.resteasy}",
+
+            "io.dropwizard.metrics:metrics-core:${versions.metrics}",
+            "io.dropwizard.metrics:metrics-jvm:${versions.metrics}",
+            "io.dropwizard.metrics:metrics-servlets:${versions.metrics}",
+            "io.dropwizard.metrics:metrics-annotation:${versions.metrics}",
 
             "com.smokejumperit.guice:core:1.1",
             "io.jsonwebtoken:jjwt:0.6.0",
